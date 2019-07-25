@@ -1,0 +1,61 @@
+#!/bin/bash
+export NODE_OPTIONS=--max-old-space-size=32768
+
+EXTENSIONS="
+@jupyter-widgets/jupyterlab-manager@0.38.1
+@jupyter-widgets/jupyterlab-sidecar@0.3.0
+@finos/perspective-jupyterlab@0.3.1
+@jupyterlab/plotly-extension@0.18.2
+@jupyterlab/toc@0.6.0
+bqplot@0.4.5
+ipyannotate@0.1.0
+ipysheet@0.3.3
+ipyvolume@0.5.1
+jupyter-leaflet@0.9.2
+jupyter-matplotlib@0.3.0
+jupyter-threejs@2.0.3
+jupyterlab_autoversion
+jupyterlab_bokeh@0.6.3
+jupyterlab-chart-editor@1.0.0
+jupyterlab_celltests@0.0.7
+jupyterlab_commands@0.1.1
+jupyterlab_email@0.1.5
+jupyterlab_iframe@0.1.9
+jupyterlab_templates@0.1.14
+lineup_widget@1.0.7
+plotlywidget@0.8.0
+qgrid@1.1.1
+"
+
+
+until jupyter labextension install $EXTENSIONS --no-build
+do
+    echo "Extension failed to install"
+done
+
+until jupyter lab build
+do
+    echo "Extension failed to install"
+done
+
+jupyter serverextension enable --py nbdime
+jupyter serverextension enable --py jupyterlab_iframe
+jupyter serverextension enable --py jupyterlab_autoversion
+jupyter serverextension enable --py jupyterlab_celltests
+jupyter serverextension enable --py jupyterlab_commands
+jupyter serverextension enable --py jupyterlab_email
+jupyter serverextension enable --py jupyterlab_templates
+jupyter serverextension enable --py nbresuse
+
+
+python3 -m spacy download en_core_web_sm
+
+
+# wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
+# tar xfzv ta-lib-0.4.0-src.tar.gz
+# cd ta-lib
+# ./configure --prefix=/usr
+# make
+# make install
+# pip3 install TA-lib
+# sudo make install
