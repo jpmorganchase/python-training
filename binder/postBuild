@@ -1,0 +1,82 @@
+#!/bin/bash
+export NODE_OPTIONS=--max-old-space-size=32768
+
+EXTENSIONS="
+@finos/perspective-jupyterlab
+@jupyter-widgets/jupyterlab-manager
+@jupyter-widgets/jupyterlab-sidecar
+@jupyterlab/celltags
+@jupyterlab/git
+@jupyterlab/plotly-extension
+@jupyterlab/statusbar
+@jupyterlab/toc
+@mflevine/jupyterlab_html
+@oriolmirosa/jupyterlab_materialdarker
+@parente/jupyterlab-quickopen
+@pyviz/jupyterlab_pyviz
+@quentinandre/jupyterlab_snippets
+bqplot
+ipyannotate
+ipyevents
+ipysheet
+ipysigma
+ipyvolume
+jupyter-leaflet
+jupyter-matplotlib
+jupyter-threejs
+jupyterlab-drawio
+jupyterlab-kernelspy
+jupyterlab-supersave
+jupyterlab_autoversion
+jupyterlab_bokeh
+jupyterlab-chart-editor
+jupyterlab_celltests
+jupyterlab_commands
+jupyterlab-dash
+jupyterlab_email
+jupyterlab_iframe
+jupyterlab_templates
+jupyterlab_tensorboard
+lineup_widget
+nbdime-jupyterlab
+plotlywidget
+pylantern
+qgrid
+"
+
+
+until jupyter labextension install $EXTENSIONS --no-build  
+do
+    echo "Extension failed to install"
+done
+
+until jupyter lab build
+do
+    echo "Extension failed to install"
+done
+
+jupyter serverextension enable --py nbdime
+jupyter serverextension enable --py jupyterlab_iframe
+jupyter serverextension enable --py jupyterlab_autoversion
+jupyter serverextension enable --py jupyterlab_celltests
+jupyter serverextension enable --py jupyterlab_commands
+jupyter serverextension enable --py jupyterlab_email
+jupyter serverextension enable --py jupyterlab_git
+jupyter serverextension enable --py jupyterlab_quickopen
+jupyter serverextension enable --py jupyterlab_snippets
+jupyter serverextension enable --py jupyterlab_templates
+jupyter serverextension enable --py nbresuse
+jupyter serverextension enable --py jupyter_tensorboard
+
+
+python3 -m spacy download en_core_web_sm
+
+
+# wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
+# tar xfzv ta-lib-0.4.0-src.tar.gz
+# cd ta-lib
+# ./configure --prefix=/usr
+# make
+# make install
+# pip3 install TA-lib
+# sudo make install
