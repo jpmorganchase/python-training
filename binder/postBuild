@@ -2,7 +2,7 @@
 export NODE_OPTIONS=--max-old-space-size=32768
 
 EXTENSIONS="
-@finos/perspective-jupyterlab
+@finos/perspective-jupyterlab@0.3.1
 @jupyter-widgets/jupyterlab-manager
 @jupyter-widgets/jupyterlab-sidecar
 @jupyterlab/celltags
@@ -45,7 +45,7 @@ qgrid
 "
 
 
-until jupyter labextension install $EXTENSIONS --no-build  
+until jupyter labextension install $EXTENSIONS --no-build
 do
     echo "Extension failed to install"
 done
