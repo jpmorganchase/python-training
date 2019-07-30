@@ -17,7 +17,7 @@ ipyannotate>=0.1.0b0
 ipydatawidgets>=4.0.0
 ipymarkup>=0.3.0
 ipympl>=0.2.1
-ipysheet>=0.3.4
+ipysheet==0.4.2
 ipysigma>=0.5.0
 ipyvolume>=0.5.1
 ipywebrtc>=0.4.3

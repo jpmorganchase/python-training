@@ -8,7 +8,7 @@ EXTENSIONS="
 @jupyterlab/plotly-extension@0.18.2
 bqplot@0.4.5
 ipyannotate@0.1.0
-ipysheet@0.4.3
+ipysheet@0.4.2
 jupyter-matplotlib@0.3.0
 jupyterlab_bokeh@0.6.3
 jupyterlab-chart-editor@1.0.0
