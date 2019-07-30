@@ -8,7 +8,6 @@ EXTENSIONS="
 @jupyterlab/celltags
 @jupyterlab/git
 @jupyterlab/plotly-extension
-@jupyterlab/statusbar
 @jupyterlab/toc
 @mflevine/jupyterlab_html
 @oriolmirosa/jupyterlab_materialdarker
