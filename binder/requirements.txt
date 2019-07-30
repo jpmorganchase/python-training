@@ -36,6 +36,7 @@ jupyterlab-snippets>=0.2.4
 jupyterlab-templates>=0.0.7
 matplotlib>=3.0.2
 mimesis>=3.0.0
+missingno>=0.4.2
 nbconvert>=5.5.0
 nbdime>=1.0.4
 nbformat>=4.4.0
