@@ -1,3 +1,5 @@
+<img width="50%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/J_P_Morgan_Logo_2008_1.svg/1280px-J_P_Morgan_Logo_2008_1.svg.png">
+
 # Python Training
 Python training for business analysts and traders.
 
