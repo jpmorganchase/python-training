@@ -3,7 +3,9 @@
 # Python Training
 Python training for business analysts and traders.
 
+![GitHub](https://img.shields.io/github/license/jpmorganchase/python-training)
 [![Binder](http://mybinder.org/badge_logo.svg)](http://beta.mybinder.org/v2/gh/jpmorganchase/python-training/master?urlpath=lab)
+[![Contact](https://img.shields.io/badge/Contact-Email-lightgrey)](mailto:open_source@jpmorgan.com)
 
 ## Overview
 This course is designed to be an introduction to numerical computing and data visualization in Python. It is not designed to be a complete course in Computer Science or programming, but rather a motivational demonstration of how relatively complex topics can be accessible even to those without formal progamming backgrounds.
