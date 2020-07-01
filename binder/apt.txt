@@ -1,1 +1,4 @@
+cmake
 graphviz-dev
+libboost-filesystem-dev
+sudo

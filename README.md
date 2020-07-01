@@ -4,7 +4,7 @@
 Python training for business analysts and traders.
 
 ![GitHub](https://img.shields.io/github/license/jpmorganchase/python-training)
-[![Binder](http://mybinder.org/badge_logo.svg)](http://beta.mybinder.org/v2/gh/jpmorganchase/python-training/master)
+[![Binder](http://mybinder.org/badge_logo.svg)](http://beta.mybinder.org/v2/gh/jpmorganchase/python-training/master?urlpath=lab)
 [![Contact](https://img.shields.io/badge/Contact-Email-lightgrey)](mailto:open_source@jpmorgan.com)
 
 ## Overview
