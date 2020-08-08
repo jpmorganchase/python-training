@@ -1,0 +1,17 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.pyc": true,
+        "**/__pycache__": true
+    },
+    "python.venvPath": "~/.local/share/virtualenvs/python-training-Vc-VjAKE",
+    "python.pythonPath": "~/.local/share/virtualenvs/python-training-Vc-VjAKE/bin/python",
+    "python.jediEnabled": true,
+    "[json]": {
+    },
+    "python.languageServer": "Jedi",
+}

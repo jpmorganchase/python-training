@@ -1,0 +1,26 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+
+[packages]
+ipykernel = "*"
+numpy = "*"
+scipy = "*"
+tables = "*"
+scikit-learn = "*"
+matplotlib = "*"
+pandas = "*"
+plotly = "*"
+pep517 = "*"
+missingno = "*"
+beautifulsoup4 = "*"
+lxml = "*"
+ipywidgets = "*"
+pyex = "*"
+
+[requires]
+python_version = "3.7"
