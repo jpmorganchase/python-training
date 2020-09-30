@@ -8,7 +8,7 @@ Python training for business analysts and traders.
 [![Contact](https://img.shields.io/badge/Contact-Email-lightgrey)](mailto:open_source@jpmorgan.com)
 
 ## Overview
-This course is designed to be an introduction to numerical computing and data visualization in Python. It is not designed to be a complete course in Computer Science or programming, but rather a motivational demonstration of how relatively complex topics can be accessible even to those without formal progamming backgrounds.
+This course is designed as an introduction to numerical computing and data visualization in Python. It is not designed to be as a complete course in Computer Science or programming, but rather a motivational demonstration of how relatively complex topics can be accessible even to those without any formal progamming backgrounds.
 
 This training is designed to be conducted in-person, led by J.P. Morgan technologists and traders. For interested institutional clients, please reach out [via email](mailto:open_source@jpmorgan.com)
 
