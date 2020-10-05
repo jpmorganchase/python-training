@@ -13,7 +13,7 @@ This course is designed to be an introduction to numerical computing and data vi
 This training is designed to be conducted in-person, led by J.P. Morgan technologists and traders. For interested institutional clients, please reach out [via email](mailto:open_source@jpmorgan.com)
 
 ## Platform Attribution
-This repository relies on the [Binder](https://mybinder.readthedocs.io/en/latest/about.html) project, which is generously funded with grants from the [Moore Foundation](https://www.moore.org/) and the [Google Cloud Platform](https://cloud.google.com/).
+This repository relies on the [Binder](https://mybinder.readthedocs.io/en/latest/about.html) project, which is generously supported by [Google Cloud Platform](https://cloud.google.com/), [OVH](https://www.ovh.com/world/), [GESIS Notebooks](https://notebooks.gesis.org) and the [Turing Institute](https://www.turing.ac.uk).
 
 
 ## Data Attribution
