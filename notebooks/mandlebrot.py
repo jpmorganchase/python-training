@@ -1,6 +1,6 @@
 # coding: utf-8
 
-import numpy as np
+import numpy as np #pip install numpy in Windows Powershell if it is not inbuilt
 
 
 def mandelbrot(X, Y, max_iterations=1000, verbose=True):
