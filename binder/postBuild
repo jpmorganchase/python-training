@@ -4,7 +4,7 @@ export PATH=/tmp/cmake/bin:$PATH
 
 python3 -m pip install perspective-python==0.5.1
 
-export NODE_OPTIONS=--max-old-space-size=4096
+export NODE_OPTIONS=--max-old-space-size=2048
 
 EXTENSIONS="
 @jupyter-widgets/jupyterlab-manager@2.0.0
