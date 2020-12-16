@@ -9,11 +9,9 @@ export NODE_OPTIONS=--max-old-space-size=4096
 EXTENSIONS="
 @jupyter-widgets/jupyterlab-manager@2.0.0
 @jupyter-widgets/jupyterlab-sidecar@0.5.0
-@bokeh/jupyter_bokeh@2.0.2
 @finos/perspective-jupyterlab@0.5.1
 ipysheet@0.4.4
 jupyter-matplotlib@0.7.2
-jupyterlab-plotly@4.8.2
 plotlywidget@4.8.2
 qgrid2@1.1.3
 "
