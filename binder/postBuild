@@ -4,22 +4,14 @@ export PATH=/tmp/cmake/bin:$PATH
 
 python3 -m pip install perspective-python==0.5.1
 
-export NODE_OPTIONS=--max-old-space-size=32768
+export NODE_OPTIONS=--max-old-space-size=2048
 
 EXTENSIONS="
 @jupyter-widgets/jupyterlab-manager@2.0.0
 @jupyter-widgets/jupyterlab-sidecar@0.5.0
-@bokeh/jupyter_bokeh@2.0.2
 @finos/perspective-jupyterlab@0.5.1
-@lckr/jupyterlab_variableinspector@0.5.1
-bqplot@0.5.13
-ipydagred3@0.2.5
-ipylab@0.3.0
 ipysheet@0.4.4
 jupyter-matplotlib@0.7.2
-jupyterlab-chart-editor@4.8.2
-jupyterlab-plotly@4.8.2
-jupyterlab_templates@0.2.5
 plotlywidget@4.8.2
 qgrid2@1.1.3
 "

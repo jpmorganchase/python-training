@@ -3,17 +3,20 @@
 # Python Training
 Python training for business analysts and traders.
 
-![GitHub](https://img.shields.io/github/license/jpmorganchase/python-training)
-[![Binder](http://mybinder.org/badge_logo.svg)](http://beta.mybinder.org/v2/gh/jpmorganchase/python-training/master?urlpath=lab)
-[![Contact](https://img.shields.io/badge/Contact-Email-lightgrey)](mailto:open_source@jpmorgan.com)
+![GitHub](https://img.shields.io/github/license/jpmorganchase/python-training?style=flat-square)
+[![Contact](https://img.shields.io/badge/Contact-Email-lightgrey?style=flat-square)](mailto:open_source@jpmorgan.com)
+
+
 
 ## Overview
 This course is designed to be an introduction to numerical computing and data visualization in Python. It is not designed to be a complete course in Computer Science or programming, but rather a motivational demonstration of how relatively complex topics can be accessible even to those without formal progamming backgrounds.
 
 This training is designed to be conducted in-person, led by J.P. Morgan technologists and traders. For interested institutional clients, please reach out [via email](mailto:open_source@jpmorgan.com)
 
+[![](https://img.shields.io/badge/Launch-Cloud%20Instance-brightgreen?style=for-the-badge)](http://mybinder.org/v2/gh/jpmorganchase/python-training/main?urlpath=lab)
+
 ## Platform Attribution
-This repository relies on the [Binder](https://mybinder.readthedocs.io/en/latest/about.html) project, which is generously funded with grants from the [Moore Foundation](https://www.moore.org/) and the [Google Cloud Platform](https://cloud.google.com/).
+This repository relies on the [Binder](https://mybinder.readthedocs.io/en/latest/about.html) project, which is generously supported by [Google Cloud Platform](https://cloud.google.com/), [OVH](https://www.ovh.com/world/), [GESIS Notebooks](https://notebooks.gesis.org) and the [Turing Institute](https://www.turing.ac.uk).
 
 
 ## Data Attribution
