@@ -50,7 +50,7 @@ statsmodels==0.10.1
 sympy==1.5.1
 tensorboard==2.2.2
 tensorboard-plugin-wit==1.6.0.post3
-tensorflow==2.5.0
+tensorflow==2.5.1
 tensorflow-estimator==2.2.0
 vapeplot==0.0.8
 vega==2.5.0
