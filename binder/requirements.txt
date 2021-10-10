@@ -4,7 +4,7 @@ bokeh
 bqplot
 ccxt
 chart-studio
-dash==
+dash
 dash-core-components
 dash-html-components
 dash-renderer
