@@ -24,7 +24,7 @@ jupyterlab-nbconvert-nocode==0.1.0
 jupyterlab-templates==0.2.4
 matplotlib==3.1.1
 mimesis==3.3.0
-nbdime==2.0.0
+nbdime==2.1.1
 nbresuse==0.3.6
 numba==0.46.0
 numpy==1.21.2
