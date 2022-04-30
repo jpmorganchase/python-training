@@ -28,5 +28,5 @@ This repository relies on the [Binder](https://mybinder.readthedocs.io/en/latest
 ## License
 This software is licensed under the Apache 2 license. See the [LICENSE](LICENSE) file for details.
 
-
+Open Source @ JPMorgan Chase 2022
 
