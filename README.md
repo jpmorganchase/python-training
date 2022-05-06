@@ -7,7 +7,6 @@ Python training for business analysts and traders.
 [![Contact](https://img.shields.io/badge/Contact-Email-lightgrey?style=flat-square)](mailto:open_source@jpmorgan.com)
 
 
-
 ## Overview
 This course is designed to be an introduction to numerical computing and data visualization in Python. It is not designed to be a complete course in Computer Science or programming, but rather a motivational demonstration of how relatively complex topics can be accessible even to those without formal progamming backgrounds.
 
@@ -27,6 +26,3 @@ This repository relies on the [Binder](https://mybinder.readthedocs.io/en/latest
 
 ## License
 This software is licensed under the Apache 2 license. See the [LICENSE](LICENSE) file for details.
-
-Open Source @ JPMorgan Chase 2022
-
