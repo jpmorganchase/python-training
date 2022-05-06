@@ -40,6 +40,10 @@ spacy
 SQLAlchemy
 statsmodels
 sympy
+tensorboard
+tensorboard-plugin-wit
+tensorflow
+tensorflow-estimator
 vapeplot
 vega
 voila
