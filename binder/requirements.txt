@@ -27,6 +27,7 @@ pandas>=1
 pandoc
 panel
 papermill
+perspective-python
 plotly
 pyarrow
 pyviz-comms
