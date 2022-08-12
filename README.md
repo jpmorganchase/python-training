@@ -1,7 +1,7 @@
 <img width="50%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/J_P_Morgan_Logo_2008_1.svg/1280px-J_P_Morgan_Logo_2008_1.svg.png">
 
 # Python Training
-Python training for business analysts and traders.
+**This Python training is for JPMorgan business analysts and traders, as well as select clients.**
 
 ![GitHub](https://img.shields.io/github/license/jpmorganchase/python-training?style=flat-square)
 [![Contact](https://img.shields.io/badge/Contact-Email-lightgrey?style=flat-square)](mailto:open_source@jpmorgan.com)
