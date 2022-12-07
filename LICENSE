@@ -199,3 +199,1181 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+---
+title: Manually creating a single issue template for your repository
+intro: 'When you add a manually-created issue template to your repository, project contributors will automatically see the template''s contents in the issue body.'
+redirect_from:
+  - /articles/creating-an-issue-template-for-your-repository
+  - /articles/manually-creating-a-single-issue-template-for-your-repository
+  - /github/building-a-strong-community/manually-creating-a-single-issue-template-for-your-repository
+versions:
+  fpt: '*'
+  ghes: '*'
+  ghae: '*'
+  ghec: '*'
+topics:
+  - Community
+shortTitle: Create an issue template
+---
+{% data reusables.repositories.legacy-issue-template-tip %}
+You can create an *ISSUE_TEMPLATE/* subdirectory in any of the supported folders to contain multiple issue templates, and use the `template` query parameter to specify the template that will fill the issue body. For more information, see "[About automation for issues and pull requests with query parameters](/articles/about-automation-for-issues-and-pull-requests-with-query-parameters)."
+You can add YAML frontmatter to each issue template to pre-fill the issue title, automatically add labels and assignees, and give the template a name and description that will be shown in the template chooser that people see when creating a new issue in your repository.
+Here is example YAML front matter.
+```yaml
+---
+name: Tracking issue
+about: Use this template for tracking new features.
+title: "[DATE]: [FEATURE NAME]"
+labels: tracking issue, needs triage
+assignees: octocat
+---
+```
+{% note %}
+**Note:** If a front matter value includes a YAML-reserved character such as `:` , you must put the whole value in quotes. For example, `":bug: Bug"` or `":new: triage needed, :bug: bug"`.
+{% endnote %}
+{% ifversion fpt or ghec %}
+{% data reusables.repositories.valid-community-issues %}
+{% endif %}
+{% ifversion fpt or ghes or ghec %}
+{% data reusables.repositories.default-issue-templates %}
+{% endif %}
+## Adding an issue template
+{% data reusables.repositories.navigate-to-repo %}
+{% data reusables.files.add-file %}
+3. In the file name field:
+    -  To make your issue template visible in the repository's root directory, type the name of your *issue_template*. For example, `issue_template.md`.
+  ![New issue template name in root directory](/assets/images/help/repository/issue-template-file-name.png)
+    - To make your issue template visible in the repository's `docs` directory, type *docs/* followed by the name of your *issue_template*. For example, `docs/issue_template.md`,
+  ![New issue template in docs directory](/assets/images/help/repository/issue-template-file-name-docs.png)
+    - To store your file in a hidden directory, type *.github/* followed by the name of your *issue_template*. For example, `.github/issue_template.md`.
+  ![New issue template in hidden directory](/assets/images/help/repository/issue-template-hidden-directory.png)
+    - To create multiple issue templates and use the `template` query parameter to specify a template to fill the issue body, type *.github/ISSUE_TEMPLATE/*, then the name of your issue template. For example, `.github/ISSUE_TEMPLATE/issue_template.md`. You can also store multiple issue templates in an `ISSUE_TEMPLATE` subdirectory within the root or `docs/` directories. For more information, see "[About automation for issues and pull requests with query parameters](/articles/about-automation-for-issues-and-pull-requests-with-query-parameters)."
+  ![New multiple issue template in hidden directory](/assets/images/help/repository/issue-template-multiple-hidden-directory.png)
+4. In the body of the new file, add your issue template. This could include:
+    - YAML frontmatter
+    - Expected behavior and actual behavior
+    - Steps to reproduce the problem
+    - Specifications like the version of the project, operating system, or hardware
+{% data reusables.files.write_commit_message %}
+{% data reusables.files.choose_commit_branch %} Templates are available to collaborators when they are merged into the repository's default branch.
+{% data reusables.files.propose_new_file %}
+## Further reading
+- "[About issue and pull request templates](/articles/about-issue-and-pull-request-templates)"
+- "[Configuring issue templates for your repository](/articles/configuring-issue-templates-for-your-repository)"
+- "[About automation for issues and pull requests with query parameters](/articles/about-automation-for-issues-and-pull-requests-with-query-parameters)"
+- "[Creating an issue](/articles/creating-an-issue)"
+# Aviator
+[![GoDoc](https://godoc.org/github.com/JulzDiverse/aviator/cockpit?status.svg)](https://godoc.org/github.com/JulzDiverse/aviator/cockpit)
+Aviator is a tool to template & merge YAML files in a convenient fashion based on a configuration file called `aviator.yml`. Aviator utilizes [Spruce](https://github.com/geofffranks/spruce) for templating and merging and therefore enables you to use all the Spruce operators in your YAML files.
+If you have to handle rather complex YAML files (for Kubernetes, Concourse, or Bosh), you just provide the flight plan (`aviator.yml`), the Aviator flies you there.
+**Reads:**
+- [Using Aviator for Concourse Pipelines](https://medium.com/@julian.skupnjak/create-a-concourse-pipeline-for-your-cloud-foundry-apps-with-ease-98ceaa055be7)
+- [Using Aviator as a alternitive to Helm](https://medium.com/@julian.skupnjak/an-alternative-to-helm-aviator-7099d50f2d28)
+## Installation
+### OS X
+
+```
+$ wget -O /usr/local/bin/aviator https://github.com/JulzDiverse/aviator/releases/download/v1.7.0/aviator-darwin-amd64 && chmod +x /usr/local/bin/aviator
+$ wget -O /usr/local/bin/aviator https://github.com/JulzDiverse/aviator/releases/download/v1.8.0/aviator-darwin-amd64 && chmod +x /usr/local/bin/aviator
+```
+
+**Via Homebrew**
+```
+$ brew tap julzdiverse/tools  
+$ brew install aviator
+```
+### Linux
+
+```
+$ wget -O /usr/bin/aviator https://github.com/JulzDiverse/aviator/releases/download/v1.7.0/aviator-linux-amd64 && chmod +x /usr/bin/aviator
+$ wget -O /usr/bin/aviator https://github.com/JulzDiverse/aviator/releases/download/v1.8.0/aviator-linux-amd64 && chmod +x /usr/bin/aviator
+```
+
+### Windows (NOT TESTED)
+
+```
+https://github.com/JulzDiverse/aviator/releases/download/v1.7.0/aviator-win
+https://github.com/JulzDiverse/aviator/releases/download/v1.8.0/aviator-win
+```
+
+## Usage
+To run Aviator navigate to a directory that contains an `aviator.yml` and run:
+```
+$ aviator
+```
+OR
+Specify an AVIATOR YAML file  with the [--file|-f] option:
+```
+$ aviator -f myAviatorFile.yml
+```
+## Configure an `aviator.yml`
+- [Configure an `aviator.yml`](#configure-an-aviatoryml)
+	- [Spruce Section](#spruce-section)
+		- [Base (`string`)](#base-string)
+		- [Prune (`Array`)](#prune-array)
+		- [cherry_pick (`array`)](#cherrypick-array)
+		- [go_patch (`bool`)](#gopatch-bool)
+		- [Merge (`Array`)](#merge-array)
+		- [skip_eval (`bool`)](#skipeval-bool)
+		- [To (`string`)](#to-string)
+		- [ForEach](#foreach)
+		- [Read From and Write To Internal Data Store](#read-from-and-write-to-internal-datastore)
+		- [Environment Variables](#environment-variables)
+		- [Variables](#variables)
+		- [Modifier](#modifier)
+	- [Squash Section](#squash-section)
+		- [Squashing specific files](#squashing-specific-files)
+		- [Squash files from a directory](#squash-files-from-a-directory)
+	- [Executors](#executors)
+		- [The `kubectl` executor](#kubectl-executor)
+		- [The `fly` executor](#fly-executor)
+		- [The Generic Executor](#generic-executor)
+	- [CLI Options](#cli-options)
+		- [`--curly-braces`](#--curly-braces)
+		- [`--silent`](#--silent)
+		- [`--verbose`](#--verbose)
+		- [`--dry-run`](#--dry-run)
+		- [`--var`](#--var)
+- [Development](#development)
+Aviator provides a verbose style of configuration. It is the result of configuring a spruce merge plan and optionally an execution plan (e.g `fly`).
+Example for a simple aviator file:
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with:
+    files:
+    - top.yml
+  to: result.yml
+```
+### Spruce Section
+The `spruce` section is an array of merge steps. It provides different parameters to provide high flexibility when merging YAML files. You can:
+- specify specific files to include into your merge
+- specify a specific directory to include into your merge
+- specify a specific directory including all subdirectories to include into your merge
+However, this is not enough. Additionally you can use *regular expressions*, *environment-variables*, and more. Read about all parameters and what they do in this section.
+#### Base (`string`)
+The `base` property specifies the path to the base YAML file. All other YAML files will be merged on top of this YAML file.
+---
+#### Prune (`Array`)
+`prune` defines YAML properties which will be pruned during the merge. For more information check the `spruce` [merge semantics](https://github.com/geofffranks/spruce/blob/master/doc/merging.md#order-of-operations).
+Example:
+```yaml
+spruce:
+- base: base.yml
+  prune:
+  - meta
+  - properties
+  merge:
+  - with:
+      files:
+      - top.yml
+  to: result.yml
+```
+In this case `meta` and `properties` will be pruned during merge.
+#### cherry_pick (`array`)
+Enables [Spruce](https://github.com/geofffranks/spruce/blob/master/doc/merging.md#order-of-operations) `cherry pick` option: With the `cherry_pick` property you can specify specific YAML subtrees you want to have in your restulting YAML file (opposite of `prune`)  
+Example:
+```yaml
+spruce:
+- base: path/to/base.yml
+  cherry_pick:
+  - properties
+  merge:
+  - with_in: path/to/dir/
+  - with:
+      files:
+      - top.yml
+  regexp: ".*.(yml)"
+  skip_eval: true
+  to: result.yml
+```
+---
+#### go_patch (`bool`)
+To use spruce in conjuction with the `go-patch` format it can be enabled within the aviator `spruce` section as a toplevel bool property:
+```
+spruce:
+- base: some.yml
+   go_patch: true
+   merge:
+   - with:
+        files:
+        - some/ops/file.yml
+   to: result.yml
+```
+Read more about it [here](https://github.com/geofffranks/spruce/blob/master/doc/merging-go-patch-files.md)
+---
+#### Merge (`Array`)
+You can configure three different merge types inside the `merge` section: `with`, `with_in`, `with_all_in`:
+**with**
+`with` specifies specific files you want to include into the merge.
+- `files` (required): List of paths to YAML files
+- `in_dir` (optional): If all of the files you want to include into the merge are in one specific directory, you can specify the directoyr path and list only file names in the `files` list. _Note: Whenever a directory is defined, the path requires a trailing "/"!!!_
+- `skip_non_existing` (optional): Setting this property to `true` will skip non existing files that are specified in the `files` list rather then returning an error. This is useful, if a file is not necessarely there.
+Example:
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with:
+    files:
+    - top.yml
+    - top2.yml
+    - top3.yml
+    in_dir: path/to/
+    skip_non_existing: true
+  to: result.yml
+```
+**with_in** (`string`)
+`with_in` specifies a path (do not forget the trailing "/") to a directory. All files  within this directory (but not subdirectories) will be included in the merge.
+Example:
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with_in: path/to/dir/
+  to: result.yml
+```
+`except` (`array`)
+With `except` you can specify a list of files you want to exclude from the path specified in `with_in`
+Example:
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with_in: path/to/dir/
+    except:
+    - file1
+    - file2
+  to: result.yml
+```
+This will exclude `path/to/dir/file1` and `path/to/dir/file2` from the merge.
+**with_all_in**
+`with_all_in` specifies a path (do not forget the trailing "/") to a directory. All files within this directory -including all subdirectories - will be included in the merge.
+Example:
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with_all_in: path/to/dir/
+    except:
+    - someFiles.yml
+    - youWant.yml
+    - toExclude.yml
+  to: result.yml
+```
+*NOTE: `except` also works for `with_all_in`*
+**regexp** (`string`(quoted))
+Only files matching the regular expression will be included in the merge. It can be specified for all three merge types `with`, `with_in`, and `with_all_in`. This could be required if the target directory contains other then only YAML files.
+Example:
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with_in: path/to/dir/
+    regexp: ".*.(yml)"
+  - with:
+      files:
+      - top.yml
+    regexp: ".*.(yml)"
+  - with_all_in: path/to/another/dir/
+    regexp: ".*.(yml)"
+  to: result.yml
+```
+---
+#### skip_eval (`bool`)
+Enabling this skip-eval will merge without resolve spruce expressions. For more information check [Spruce doc](https://github.com/geofffranks/spruce/blob/master/doc/merging.md#order-of-operations)
+Example:
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with_in: path/to/dir/
+  - with:
+      files:
+      - top.yml
+  regexp: ".*.(yml)"
+  skip_eval: true
+  to: result.yml
+```
+---
+#### To (`string`)
+`to` specifies the target file, where the merged files should be saved to. It can be used only in combination with the basic merge types `files`, `with_in`, and `with_all_in`.
+---
+#### ForEach
+On top of the basic `merge` you can do more complex merges with `for_each`. More precisely, you can execute the basic `merge` for multiple files specified in `for_each`. When specifying files with `for_each` you need to use `to_dir` instead of `to` to specify a target directory instead of a target file.    
+**files**
+`files` specifies a list of files that will be included in your merge seperately.
+Example:
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with:
+      files:
+      - top.yml
+    regexp: ".*.(yml)"
+  for_each:
+    files:
+    - env.yml
+    - env2.yml
+  to_dir: results/
+```
+This merge step will execute two merges and generate two files. It will merge `base.yml` and `top.yml` with `env.yml`, write it to `results/` and do the same with `env2.yml`.
+**in**
+`in` is basically the same as `files` with the difference that it will merge all files for a given path sperately
+Example:
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with:
+      files:
+      - top.yml
+    regexp: ".*.(yml)"
+  for_each:
+    in: path/to/dir/
+  to_dir: results/
+```
+**Except**
+`except` works in combination with `in`: list of files that you want to exclude from the merge.
+Example:
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with:
+      files:
+      - top.yml
+  regexp: ".*.(yml)"
+  for_each_in: path/to/dir/
+  except:
+  - some.yml
+  to_dir: results/
+```
+**include_sub_dirs**
+`include_sub_dirs` includes all files including files in all subdirectories of a directory into the merge seperately.
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with:
+      files:
+      - top.yml
+  regexp: ".*.(yml)"
+  for_each:
+    in: path/to/dir
+    include_sub_dirs: true
+    enable_matching: true
+    copy_parents: true
+  to_dir: results/
+```
+When `include_sub_dirs` is defined you can specify further properties:
+- `enable_matching`: this will only include files in the merge, that contains the same substring as the parent directory.
+- `copy_parents`: setting this property to `true` (default `false`) will copy the parent folder of a file to the target directory (in the above example `results/`)
+**regexp**
+The `regexp` property can also be set in combination with `for_each`, `for_each_in`, and `walk_through` to only include files matching the regular expression.
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with:
+      files:
+      - top.yml
+  regexp: ".*.(yml)"
+  for_each:
+    in: path/to/dir
+    include_sub_dirs: true
+    enable_matching: true
+    copy_parents: true
+    regexp: ".*.(yml)"
+  to_dir: results/
+```
+---
+#### Read From and Write To Internal Datatsore
+Sometimes it is required to do more than one merge step, which creates intermediate YAML files. In this case you can save merge results to internal datastore/cache which you can write/read by surrounding your location with double courly braces `{{file|dir}}`. Internal cache also work as directories and can be used with `to_dir`.
+Example:
+```yaml
+spruce:
+- base: path/to/base.yml
+  merge:
+  - with_in: path/to/dir/
+  to: {{result}}
+- base: {{result}}
+  merge:
+  - with_in: another/path/
+  to: final.yml
+```
+#### Environment Variables
+Aviator supports to read _Environment Variables_. Environment variables can be set with `$VAR` or `${VAR}` at an arbitrary place in the `aviator.yml`.
+Example:
+```yaml
+spruce:
+- base: $BASE_PATH/app-${NUMBER}.yml
+  merge:
+  - with_in: path/to/dir/
+  to: {{result}}
+- base: {{result}}
+  merge:
+  - with_in: $TARGET_PATH
+  to: $RESULT_YAML
+```
+Executing `aviator` as follows:
+```
+$ BASE_PATH=/tmp/ NUMBER=1 RESULT_YAML=result.yml aviator
+```
+will resolve:
+```yaml
+spruce:
+- base: /tmp/app-1.yml
+  merge:
+  - with_in: path/to/dir/
+  to: {{result}}
+- base: {{result}}
+  merge:
+  - with_in: $TARGET_PATH
+  to: result.yml
+```
+#### Variables
+You can provide variables to aviator files using the `--var` flag. Basic CLI usage:
+`$ aviator --var key=value`
+In you aviator file you need to specify the name of the variable you want to interpolate. The syntax for a variable is the following `(( varName ))` (note the space before and after the variable name!)
+Example:
+```yaml
+---
+spruce:
+- base: (( key ))
+  ...
+```
+In this example the variable `key` will be replaced by the value `value`. So the result would look like this:
+```yaml
+---
+spruce:
+- base: value
+  ...
+```
+Values for aviator variables can be multi-line
+#### Modifier
+With modifier you can modify the resulting (merged) YAML file. You can either delete, set, or update a property. The modifier will always be applied on the result. If you use `for_each` it will be applied on each `for_each` merge step.
+Consider a resulting YAML from a merge process `result.yml`, which has a property `person.name`:
+```yaml
+---
+person:
+  name: Julz
+```
+1. the property can be deleted
+  ```yaml
+  spruce:
+  - base: base.yml
+    merge:
+    - with:
+        files:
+        - top.yml
+    modify:
+      delete:
+      - "person.name"
+    to: result.yml
+  ```
+  It deletes a property only if it exists. There will be no error if a proerty does NOT exist.
+2. the property can be updated:
+  ```yaml
+  spruce:
+  - base: base.yml
+    merge:
+    - with:
+        files:
+        - top.yml
+    modify:
+      update:
+      - path: person.name
+        value: newName
+    to: result.yml
+  ```
+  Using update will update existing properties only.
+3. Other properties can be added/updated with set:
+  ```yaml
+  spruce:
+  - base: base.yml
+    merge:
+    - with:
+        files:
+        - top.yml
+    modify:
+      set:
+      - path: person.name
+        value: NewName
+    to: result.yml
+  ```
+  Set updates or adds a property to an array. If a property exists it will be overwritten, if the property does not exist it will be added (works only for maps not arrays).
+Aviator uses [goml](https://github.com/JulzDiverse/goml) as YAML modifier. If you want to read more about `update`, `delete`, and `set`, check the README.
+---
+### Squash Section
+You can squash multiple files into one single YAML file using the `squash` section.
+#### Squashing specific files
+```yaml
+squash:
+  contents:
+  - files:
+    - deployment.yml
+    - service.yml
+  to: app.yml
+```
+#### Squash files from a directory
+```yaml
+squash:
+  contents:
+  - dir: my/dir/
+  to: app.yml
+```
+### Executors
+Executors execute executables installed on the OS that Aviator is running on. The following three executors are currently supported by Aviator:
+- `kubectl` Executor
+- `fly` Executor
+- Generic Executor: Runs an any specified executable. 
+#### `kubectl` executor 
+Execute `kubectl apply` with the following options: 
+*Supported flags*
+- **file**: Name of the file to `kubectl apply`
+- **force**: calls `kubectl apply` with the `--force` flag
+- **dry_run**: calls `kubectl apply` with the `--dry-run` flag
+- **overwrite**: calls `kubectl apply` with the `--overwrite` flag
+- **recursive**: calls the `kubectl apply` with the `--recursive` flag
+- **output**: calls the `kubectl apply` with the `--output=<desired-ouput>` parameter
+- **kustomize**: calls the `kubectl apply` with the `--kustomazation/-k` flag rather than with `--filename/-f`.
+  - Read more about `kubectl apply` + kustomization [here](https://github.com/kubernetes-sigs/kustomize) and [here](https://kubectl.docs.kubernetes.io/pages/app_management/apply.html)
+You can read about the details of the flags of `kubectl apply` [here](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#apply)
+Example:
+```yaml
+kubectl
+  apply:
+    file: deployment.yml
+    force: true
+    dry_run: true
+    overwrite: true
+    recursive: true
+    output: yaml
+```
+**Kustomize Example:**
+When `kustomize` flag in aviator is set to true it will call `kubectl apply` with the `--kustomization/-k` flag, which expects a directory path. The directory paht needs to be specified in the `file` property of `kubectl.apply`:
+```yaml
+kubectl:
+  apply:
+    file: kustomization/path/
+    kustomize: true
+```
+#### Fly Executor
+An executor for the Concourse Fly CLI. The supported commands are `set-pipeline`, `validate-pipeline`, `format-pipeline`, and `expose-pipeline/hide-pipeline`.
+The `set-pipeline` and `hide-pipeline` commands are executed by default. Here is the list of commands and flags that can be used with `aviator`:
+- **name**: Name of the pipeline
+- **target**: Target short name (`fly` target)
+- **config (string):** the pipeline config file (yml)
+- **load_vars_from (array):** List of all property files (-l)
+- **vars (map):** Map of variables (--var)
+- **non_interactive (bool):** Enables non-interactive mode (-n)
+- **expose (bool):** Exposes the pipeline (expose-pipeline)
+- **validate_pipeline (bool):** Validate local pipeline configuration (failes on errors)
+- **strict (bool):** causes `validate_pipeline` to fail on errors AND warnings
+- **format_pipeline (bool):** format a pipeline config in a "canonical" form (prints to stdout).
+- **write:** update the formatted pipeline config file in-place.
+- **team_name (string):** the team name to fly for set-pipeline
+More detailed description of the flags can be found [here](https://concourse-ci.org/pipelines.html)
+Example - set-pipeline:
+```yaml
+fly:
+  name: myPipelineName
+  target: myFlyTarget
+  team_name: concourse-team
+  config: pipeline.yml
+  non_interactive: true
+  check_creds: true
+  load_vars_from:
+  - credentials.yml
+  vars:
+    var1: myvar
+    var2: myvar2
+  expose: true
+```
+Example - validate-pipeline:
+```yaml
+fly:
+  config: myconfig.yml
+  validate_pipeline: true
+  strict: true
+```
+Example - format-pipeline:
+```yaml
+fly:
+  config: myconfig.yml
+  format_pipeline: true
+  write: true
+```
+_NOTE: You will need to fly login first, before executing `aviator`_
+#### Generic Executor
+The Generic Executor executes any specified executable. Here is how to define an Generic Executor in the `aviator.yml`:
+```yaml
+exec:
+- executable: some-executable # required
+  global_options: # optional
+  - name: --option
+    value: option-value
+  command: # optional
+    name: command-name
+    options:
+    - name: --command-option
+      value: command-option-value
+  args:
+  - arg1
+  - arg2
+```
+This will executed as `$ some-executable --option option-value command-name --command-option command-option-value arg1 arg2`
+Example: `cp`
+```yaml
+exec:
+- executable: cp
+  global_options:
+  - name: -r
+  args:
+  - dir/
+  - destination/
+```
+This calls `cp` as follows: `$ cp -r dir/ destination/`
+---
+### CLI Options
+#### `--curly-braces`
+Some YAML based tools (like concourse in the past) are using `{{}}` sytnax. This is not YAML conform. Using the `--curly-braces` option you can allow this syntax.
+#### `--silent`
+This option will output no infromation to stdout.
+#### `--verbose`
+This option prints which files are excluded from a merge.
+#### `--dry-run`
+This option prints contents to `stdout` rather than writing it to files. This flag also omits any defined executor.
+#### `--var`
+You can provide variables to the aviator file.
+---
+# Development
+```
+$ go get github.com/JulzDiverse/aviator
+```
+## Build Aviator
+To build the aviator binary you can navigate to `cmd/aviator`:
+```
+$ cd ./cmd/aviator`
+ name: Upload a Build Artifact
+  uses: actions/upload-artifact@v3.1.1
+  with:
+    # Artifact name
+    name: # optional, default is artifact
+    # A file, directory or wildcard pattern that describes what to upload
+    path: 
+    # The desired behavior if no files are found using the provided path.
+Available Options:
+  warn: Output a warning but do not fail the action
+  error: Fail the action with an error message
+  ignore: Do not output any warnings or errors, the action does not fail
+    if-no-files-found: # optional, default is warn
+    # Duration after which artifact will expire in days. 0 means using default retention.
+Minimum 1 day. Maximum 90 days unless changed from the repository settings page.
+    retention-days: # optional           					EIN	61-1767919																																																				
+	                                                                        	88-1303491																																																									
+	INTERNAL REVENUE SERVICE,                                                                        																																																										
+	PO BOX 1214,                                                                        						ID:		Ssn: 		DoB:  																																																
+	CHARLOTTE, NC 28201-1214                                                                        																																																										
+	                                                                        																																																										
+	ZACHRY WOOD                                                                        		633441725		34622																																	       																					
+	15																																																										
+	For Disclosure, Privacy Act, and Paperwork Reduction Act Notice, see separate instructions.                                                                        																																																										
+	Cat. No. 11320B                                                                        																																																										
+	Form 1040 (2021)                                                                        						        Tax Form-#	             Period 	                Total	    SS Tax	    Medicare Withholding																																																
+	Reported Normalized and Operating Income/Expense Supplemental Section                                                   Fed-941 Corporate	     Sunday, September 17, 2001	66986.66	28841.48	6745.18	 31400																																														
+	Total Revenue as Reported, Supplemental                                                                        			Fed-941 West-Subsidiary	 Sunday, September 17, 2001	17115.41	7369.14	    1723.42	 8022.85																																															
+	Total Operating Profit/Loss as Reported, Supplemental                                                                   Fed-941 South-Subsidiary Sunday, September 17, 2001	23906.09	10292.9	    2407.21	 11205.98																																															
+	Reported Effective Tax Rate                                                                        						Fed-941 East-Subsidiary	 Sunday, September 17, 2001	11247.64	4842.74	    1132.57	 5272.33																																															
+	Reported Normalized Income                                                                        						Fed-941 Corp-Pay,        Sunday, September 17, 2001	27198.5	    11710.47	2738.73	 12749.3																																											
+	Reported Normalized Operating Profit                                                                        			Fed-940 AnnualUnemp-Corp Sunday, September 17, 2001	17028.05																																																		
+	Other Adjustments to Net Income Available to Common Stockholders                                                                        																																																										
+	Discontinued Operations                                                                        	Q12022	Q42021	Q32021	Q22021	Q12021	Q42020	Q32020	Q22020	Q12020	Q42019	Q32019																																															
+	Basic EPS                                                                        																																																										
+	Basic EPS from Continuing Operations                                                                        	1.46698E+11	42337000000	37497000000	35653000000	31211000000	30818000000	25056000000	19744000000	22177000000	25055000000	22931000000																																															
+	Basic EPS from Discontinued Operations                                                                        	2.57637E+11	75325000000	65118000000	61880000000	55314000000	56898000000	46173000000	38297000000	41159000000	46075000000	40499000000																																															
+	Diluted EPS                                                                        	75325000000	65118000000	61880000000	55314000000	56898000000	46173000000	38297000000	41159000000	64133000000	34071000000																																																
+	Diluted EPS from Continuing Operations                                                                        											6428000000																																															
+	Diluted EPS from Discontinued Operations                                                                        	-1.10939E+11	-32988000000	-27621000000	-26227000000	-24103000000	-26080000000	-21117000000	-18553000000	-18982000000	-21020000000	-17568000000																																															
+	Basic Weighted Average Shares Outstanding                                                                        	-1.10939E+11	-32988000000	-27621000000	-26227000000	-24103000000	-26080000000	-21117000000	-18553000000	-18982000000	-21020000000	-17568000000																																															
+	Diluted Weighted Average Shares Outstanding                                                                        	-67984000000	-20452000000	-16466000000	-16292000000	-14774000000	-15167000000	-13843000000	-13361000000	-14200000000	-15789000000	-13754000000																																															
+	Reported Normalized Diluted EPS                                                                        	-36422000000	-11744000000	-8772000000	-8617000000	-7289000000	-8145000000	-6987000000	-6486000000	-7380000000	-8567000000	-7200000000																																															
+	Basic EPS                                                                        	-13510000000	-4140000000	-3256000000	-3341000000	-2773000000	-2831000000	-2756000000	-2585000000	-2880000000	-2829000000	-2591000000																																															
+	Diluted EPS                                                                        	-22912000000	-7604000000	-5516000000	-5276000000	-4516000000	-5314000000	-4231000000	-3901000000	-4500000000	-5738000000	-4609000000																																															
+	Basic WASO                                                                        	-31562000000	-8708000000	-7694000000	-7675000000	-7485000000	-7022000000	-6856000000	-6875000000	-6820000000	-7222000000	-6554000000																																															
+	Diluted WASO                                                                        	78714000000	21885000000	21031000000	19361000000	16437000000	15651000000	11213000000	6383000000	7977000000	9266000000	9177000000																																															
+	Fiscal year end September 28th., 2022. | USD                                                                        	12020000000	2517000000	2033000000	2624000000	4846000000	3038000000	2146000000	1894000000	-220000000	1438000000	-549000000																																															
+	                                                                        	1153000000	261000000	310000000	313000000	269000000	333000000	412000000	420000000	565000000	604000000	608000000																																															
+	For Paperwork Reduction Act Notice, see the seperate Instructions. 	1153000000	261000000	310000000	313000000	269000000	333000000	412000000	420000000	565000000	604000000	608000000																																															
+																																																											
+	Interest Expense Net of Capitalized Interest	-346000000	-117000000	-77000000	-76000000	-76000000	-53000000	-48000000	-13000000	-21000000	-17000000	-23000000																																															
+	Interest Income	1499000000	378000000	387000000	389000000	345000000	386000000	460000000	433000000	586000000	621000000	631000000																																															
+	Net Investment Income	12364000000	2364000000	2207000000	2924000000	4869000000	3530000000	1957000000	1696000000	-809000000	899000000	-1452000000																																															
+	Gain/Loss on Investments and Other Financial Instruments	12270000000	2478000000	2158000000	2883000000	4751000000	3262000000	2015000000	1842000000	-802000000	399000000	-1479000000																																															
+	Income from Associates, Joint Ventures and Other Participating Interests	334000000	49000000	188000000	92000000	5000000	355000000	26000000	-54000000	74000000	460000000	-14000000																																															
+	Gain/Loss on Foreign Exchange	-240000000	-163000000	-139000000	-51000000	113000000	-87000000	-84000000	-92000000	-81000000	40000000	41000000																																															
+	Irregular Income/Expenses	0	0				0	0	0	0	0	0																																															
+	Other Irregular Income/Expenses	0	0				0	0	0	0	0	0																																															
+	Other Income/Expense, Non-Operating	-1497000000	-108000000	-484000000	-613000000	-292000000	-825000000	-223000000	-222000000	24000000	-65000000	295000000																																															
+	Pretax Income	90734000000	24402000000	23064000000	21985000000	21283000000	18689000000	13359000000	8277000000	7757000000	10704000000	8628000000																																															
+	Provision for Income Tax	-14701000000	-3760000000	-4128000000	-3460000000	-3353000000	-3462000000	-2112000000	-1318000000	-921000000	-33000000	-1560000000																																															
+	Net Income from Continuing Operations	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Net Income after Extraordinary Items and Discontinued Operations	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Net Income after Non-Controlling/Minority Interests	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Net Income Available to Common Stockholders	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Diluted Net Income Available to Common Stockholders	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Income Statement Supplemental Section																																																										
+	Reported Normalized and Operating Income/Expense Supplemental Section																																																										
+	Total Revenue as Reported, Supplemental	2.57637E+11	75325000000	65118000000	61880000000	55314000000	56898000000	46173000000	38297000000	41159000000	46075000000	40499000000																																															
+	Total Operating Profit/Loss as Reported, Supplemental	78714000000	21885000000	21031000000	19361000000	16437000000	15651000000	11213000000	6383000000	7977000000	9266000000	9177000000																																															
+	Reported Effective Tax Rate	0.162		0.179	0.157	0.158		0.158	0.159	0.119		0.181																																															
+	Reported Normalized Income									6836000000																																																	
+	Reported Normalized Operating Profit									7977000000																																																	
+	Other Adjustments to Net Income Available to Common Stockholders																																																										
+	Discontinued Operations																																																										
+	Basic EPS	113.88	31.15	28.44	27.69	26.63	22.54	16.55	10.21	9.96	15.49	10.2																																															
+	Basic EPS from Continuing Operations	113.88	31.12	28.44	27.69	26.63	22.46	16.55	10.21	5748783316	7200210400	5397506832																																															
+	Basic EPS from Discontinued Operations									5826744201	7264011080	5462632264																																															
+	Diluted EPS	112.2	30.69	27.99	27.26	26.29	22.3	16.4	10.13	5904705086	7327811761	5527757696																																															
+	Diluted EPS from Continuing Operations	112.2	30.67	27.99	27.26	26.29	22.23	16.4	10.13	5982665971	7391612442	5592883128																																															
+	Diluted EPS from Discontinued Operations									6060626856	7455413122	5658008560																																															
+	Basic Weighted Average Shares Outstanding	667650000	662664000	665758000	668958000	673220000	675581000	679449000	681768000	6138587741	7519213803	5723133992																																															
+	Diluted Weighted Average Shares Outstanding	677674000	672493000	676519000	679612000	682071000	682969000	685851000	687024000	6216548625	7583014484	5788259424																																															
+	Reported Normalized Diluted EPS									6294509510	7646815164	5853384856																																															
+	Basic EPS	113.88	31.15	28.44	27.69	26.63	22.54	16.55	10.21	6372470395	7710615845	5918510288																																															
+	Diluted EPS	112.2	30.69	27.99	27.26	26.29	22.3	16.4	10.13	6450431280	7774416525	5983635720																																															
+	Basic WASO	667650000	662664000	665758000	668958000	673220000	675581000	679449000	681768000	6528392165	7838217206	6048761151																																															
+	Diluted WASO	677674000	672493000	676519000	679612000	682071000	682969000	685851000	687024000	6606353050	7902017887	6113886583																																															
+	Fiscal year end September 28th., 2022. | USD								 name: Upload a Build Artifact
+  uses: actions/upload-artifact@v3.1.1
+  with:
+    # Artifact name
+    name: # optional, default is artifact
+    # A file, directory or wildcard pattern that describes what to upload
+    path: 
+    # The desired behavior if no files are found using the provided path.
+Available Options:
+  warn: Output a warning but do not fail the action
+  error: Fail the action with an error message
+  ignore: Do not output any warnings or errors, the action does not fail
+
+    if-no-files-found: # optional, default is warn
+    # Duration after which artifact will expire in days. 0 means using default retention.
+Minimum 1 day. Maximum 90 days unless changed from the repository settings page.
+
+    retention-days: # optionalimport"chrome://media-app/strings.m.js";import{loadTimeData}from"chrome://resources/js/load_time_data.m.js";mojo.internal.exportModule("mojoBase.mojom");mojoBase.mojom.UnguessableTokenSpec={$:{}};mojo.internal.Struct(mojoBase.mojom.UnguessableTokenSpec.$,"UnguessableToken",[mojo.internal.StructField("high",0,0,mojo.internal.Uint64,BigInt(0),false),mojo.internal.StructField("low",8,0,mojo.internal.Uint64,BigInt(0),false)],[[0,24]]);mojoBase.mojom.UnguessableToken=class{constructor(){this.high;this.low}};mojo.internal.exportModule("blink.mojom");blink.mojom.FileSystemAccessTransferTokenPendingReceiver=class{constructor(handle){this.handle=mojo.internal.interfaceSupport.getEndpointForReceiver(handle)}bindInBrowser(scope="context"){mojo.internal.interfaceSupport.bind(this.handle,blink.mojom.FileSystemAccessTransferToken.$interfaceName,scope)}};blink.mojom.FileSystemAccessTransferTokenRemote=class{constructor(handle=undefined){this.proxy=new mojo.internal.interfaceSupport.InterfaceRemoteBase(blink.mojom.FileSystemAccessTransferTokenPendingReceiver,handle);this.$=new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);this.onConnectionError=this.proxy.getConnectionErrorEventRouter()}getInternalID(){return this.proxy.sendMessage(0,blink.mojom.FileSystemAccessTransferToken_GetInternalID_ParamsSpec.$,blink.mojom.FileSystemAccessTransferToken_GetInternalID_ResponseParamsSpec.$,[])}clone(tokenClone){this.proxy.sendMessage(1,blink.mojom.FileSystemAccessTransferToken_Clone_ParamsSpec.$,null,[tokenClone])}};blink.mojom.FileSystemAccessTransferTokenReceiver=class{constructor(impl){this.helper_internal_=new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(blink.mojom.FileSystemAccessTransferTokenRemote);this.$=new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);this.helper_internal_.registerHandler(0,blink.mojom.FileSystemAccessTransferToken_GetInternalID_ParamsSpec.$,blink.mojom.FileSystemAccessTransferToken_GetInternalID_ResponseParamsSpec.$,impl.getInternalID.bind(impl));this.helper_internal_.registerHandler(1,blink.mojom.FileSystemAccessTransferToken_Clone_ParamsSpec.$,null,impl.clone.bind(impl));this.onConnectionError=this.helper_internal_.getConnectionErrorEventRouter()}};blink.mojom.FileSystemAccessTransferToken=class{static get $interfaceName(){return"blink.mojom.FileSystemAccessTransferToken"}static getRemote(){let remote=new blink.mojom.FileSystemAccessTransferTokenRemote;remote.$.bindNewPipeAndPassReceiver().bindInBrowser();return remote}};blink.mojom.FileSystemAccessTransferTokenCallbackRouter=class{constructor(){this.helper_internal_=new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(blink.mojom.FileSystemAccessTransferTokenRemote);this.$=new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);this.router_=new mojo.internal.interfaceSupport.CallbackRouter;this.getInternalID=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(0,blink.mojom.FileSystemAccessTransferToken_GetInternalID_ParamsSpec.$,blink.mojom.FileSystemAccessTransferToken_GetInternalID_ResponseParamsSpec.$,this.getInternalID.createReceiverHandler(true));this.clone=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(1,blink.mojom.FileSystemAccessTransferToken_Clone_ParamsSpec.$,null,this.clone.createReceiverHandler(false));this.onConnectionError=this.helper_internal_.getConnectionErrorEventRouter()}removeListener(id){return this.router_.removeListener(id)}};blink.mojom.FileSystemAccessTransferToken_GetInternalID_ParamsSpec={$:{}};blink.mojom.FileSystemAccessTransferToken_GetInternalID_ResponseParamsSpec={$:{}};blink.mojom.FileSystemAccessTransferToken_Clone_ParamsSpec={$:{}};mojo.internal.Struct(blink.mojom.FileSystemAccessTransferToken_GetInternalID_ParamsSpec.$,"FileSystemAccessTransferToken_GetInternalID_Params",[],[[0,8]]);blink.mojom.FileSystemAccessTransferToken_GetInternalID_Params=class{constructor(){}};mojo.internal.Struct(blink.mojom.FileSystemAccessTransferToken_GetInternalID_ResponseParamsSpec.$,"FileSystemAccessTransferToken_GetInternalID_ResponseParams",[mojo.internal.StructField("id",0,0,mojoBase.mojom.UnguessableTokenSpec.$,null,false)],[[0,16]]);blink.mojom.FileSystemAccessTransferToken_GetInternalID_ResponseParams=class{constructor(){this.id}};mojo.internal.Struct(blink.mojom.FileSystemAccessTransferToken_Clone_ParamsSpec.$,"FileSystemAccessTransferToken_Clone_Params",[mojo.internal.StructField("tokenClone",0,0,mojo.internal.InterfaceRequest(blink.mojom.FileSystemAccessTransferTokenPendingReceiver),null,false)],[[0,16]]);blink.mojom.FileSystemAccessTransferToken_Clone_Params=class{constructor(){this.tokenClone}};
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const PRODUCT_NAME="ChromeOS_MediaApp";function reportCrashError(...errors){if(!errors||errors.length===0){return}let message="";for(let i=1;i<errors.length;i++){const errorArg=errors[i];if(errorArg!==undefined){if(errorArg instanceof Error){message+=`\n${errorArg.name}: ${errorArg.message}`}else if(typeof errorArg==="string"){message+=", "+errorArg}else{try{message+="\n"+JSON.stringify(errorArg)}catch(e){message+="<object loop?>"}}}}let firstError=errors[0];let errorObject;let errorMessage;let prefix="";if(firstError instanceof PromiseRejectionEvent){prefix="Unhandled rejection: ";firstError=firstError.reason}else if(typeof firstError==="object"&&firstError!==null&&firstError.constructor){prefix=firstError.constructor.name+": "}if(firstError instanceof Error||firstError instanceof ErrorEvent||firstError instanceof DOMException){errorMessage=`[${firstError.name||""}] ${firstError.message}`;errorObject=firstError;if(!errorObject.stack){errorObject.stack=(new Error).stack}}else{try{errorMessage=`Unexpected: ${JSON.stringify(firstError)}`}catch(e){errorMessage=`Unexpected: <object loop?>`}}if(!errorObject){errorObject=new Error}const params={product:PRODUCT_NAME,url:self.location.href,message:prefix+errorMessage+message,lineNumber:errorObject.lineNumber||0,stackTrace:errorObject.stack||"",columnNumber:errorObject.columnNumber||0};chrome.crashReportPrivate.reportError(params,(()=>{}))}function captureConsoleErrors(realConsoleError,report){console.error=(...errors)=>{realConsoleError(...errors);report(...errors,"(from console)")}}captureConsoleErrors(console.error,reportCrashError);window.addEventListener("error",reportCrashError);window.addEventListener("unhandledrejection",reportCrashError);const TEST_ONLY$1={reportCrashError:reportCrashError,captureConsoleErrors:captureConsoleErrors};var error_reporter=Object.freeze({__proto__:null,TEST_ONLY:TEST_ONLY$1});
+// Copyright 2020 The Chromium Authors
+function serializeError(error){return{message:error.message||"",name:error.name||"",stack:error.stack||""}}class NativeResolver{constructor(){this.resolve;this.reject;this.promise=new Promise(((resolve,reject)=>{this.resolve=resolve;this.reject=reject}))}}function assertCast(condition){if(!condition){throw new Error("Failed assertion")}return condition}const ReservedMessageTypes={RESPONSE_TYPE:"___response",ERROR_TYPE:"___error"};function isGeneratedMessage(messageType){return messageType.substr(0,3)==="___"}function throwIfReserved(messageType){if(isGeneratedMessage(messageType)){throw new Error(`Unexpected reserved message type: '${messageType}'`)}}class MessagePipe{constructor(targetOrigin,target,rethrowErrors=true){if(!target){const frame=document.querySelector(`iframe[src^='${targetOrigin}']`);if(!frame||!frame.contentWindow){throw new Error("Unable to locate target content window.")}target=assertCast(frame.contentWindow)}this.target_=target;this.targetOrigin_=targetOrigin;this.rethrowErrors=rethrowErrors;this.logClientError=object=>console.error(JSON.stringify(object));this.messageHandlers_=new Map;this.pendingMessages_=new Map;this.nextMessageId_=0;this.messageListener_=m=>this.receiveMessage_(m);console.assert(this.target_!==window,"target !== window");window.addEventListener("message",this.messageListener_)}registerHandler(messageType,handler){throwIfReserved(messageType);if(this.messageHandlers_.has(messageType)){throw new Error(`A handler already exists for ${messageType}`)}this.messageHandlers_.set(messageType,handler)}async sendMessage(messageType,message={}){try{return await this.sendMessageImpl(messageType,message)}catch(errorResponse){const error=new Error(`${messageType}: ${errorResponse.message}`);error.name=errorResponse.name||"Unknown Error";error.stack+=`\nError from ${this.targetOrigin_}\n${errorResponse.stack}`;throw error}}async sendMessageImpl(messageType,message={}){throwIfReserved(messageType);const messageId=this.nextMessageId_++;const resolver=new NativeResolver;this.pendingMessages_.set(messageId,resolver);this.postToTarget_(messageType,message,messageId);return resolver.promise}detach(){window.removeEventListener("message",this.messageListener_)}handleMessageResponse_(messageType,message,messageId){const{RESPONSE_TYPE:RESPONSE_TYPE,ERROR_TYPE:ERROR_TYPE}=ReservedMessageTypes;const resolver=this.pendingMessages_.get(messageId);if(messageType===RESPONSE_TYPE){resolver.resolve(message)}else if(messageType===ERROR_TYPE){this.logClientError(message);resolver.reject(message)}else{console.error(`Response for message ${messageId} received with invalid message type ${messageType}`)}this.pendingMessages_.delete(messageId)}async callHandlerForMessageType_(messageType,message,messageId){const{RESPONSE_TYPE:RESPONSE_TYPE,ERROR_TYPE:ERROR_TYPE}=ReservedMessageTypes;let response;let error=null;let sawError=false;try{response=await this.messageHandlers_.get(messageType)(message)}catch(err){sawError=true;error=err;response=serializeError(err)}this.postToTarget_(sawError?ERROR_TYPE:RESPONSE_TYPE,response,messageId);if(sawError&&this.rethrowErrors){this.logClientError(error);throw error}}receiveMessage_(event){const e=event;if(typeof e.data!=="object"||!e.data||typeof e.data.type!=="string"){return}const{messageId:messageId,type:type,message:message}=e.data;const{ERROR_TYPE:ERROR_TYPE}=ReservedMessageTypes;if(e.origin!==this.targetOrigin_&&this.targetOrigin_!=="*"){return}if(isGeneratedMessage(type)&&this.pendingMessages_.has(messageId)){this.handleMessageResponse_(type,message,messageId);return}if(isGeneratedMessage(type)){console.error(`Response with type ${type} for unknown message received.`);return}if(!this.messageHandlers_.has(type)){const error=new Error(`No handler registered for message type '${type}'`);const errorResponse=serializeError(error);this.postToTarget_(ERROR_TYPE,errorResponse,messageId);return}this.callHandlerForMessageType_(type,message,messageId)}postToTarget_(messageType,message,messageId){const messageWrapper={messageId:messageId,type:messageType,message:message||{}};this.target_.postMessage(messageWrapper,this.targetOrigin_)}}
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const Message={DELETE_FILE:"delete-file",EDIT_IN_PHOTOS:"edit-in-photos",IFRAME_READY:"iframe-ready",IS_FILE_ARC_WRITABLE:"is-file-arc-writable",IS_FILE_BROWSER_WRITABLE:"is-file-browser-writable",LOAD_EXTRA_FILES:"load-extra-files",LOAD_FILES:"load-files",MAYBE_TRIGGER_PDF_HATS:"maybe-trigger-pdf-hats",NAVIGATE:"navigate",NOTIFY_CURRENT_FILE:"notify-current-file",OPEN_ALLOWED_FILE:"open-allowed-file",OPEN_FEEDBACK_DIALOG:"open-feedback-dialog",OPEN_FILES_WITH_PICKER:"open-files-with-picker",OPEN_IN_SANDBOXED_VIEWER:"open-in-sandboxed-viewer",OVERWRITE_FILE:"overwrite-file",RELOAD_MAIN_FRAME:"reload-main-frame",RENAME_FILE:"rename-file",REQUEST_SAVE_FILE:"request-save-file",SAVE_AS:"save-as",TOGGLE_BROWSER_FULLSCREEN_MODE:"toggle-browser-fullscreen-mode"};const RenameResult={FILE_NO_LONGER_IN_LAST_OPENED_DIRECTORY:-1,SUCCESS:0,FILE_EXISTS:1};mojo.internal.exportModule("ash.mediaAppUi.mojom");ash.mediaAppUi.mojom.PageHandlerFactoryPendingReceiver=class{constructor(handle){this.handle=mojo.internal.interfaceSupport.getEndpointForReceiver(handle)}bindInBrowser(scope="context"){mojo.internal.interfaceSupport.bind(this.handle,ash.mediaAppUi.mojom.PageHandlerFactory.$interfaceName,scope)}};ash.mediaAppUi.mojom.PageHandlerFactoryRemote=class{constructor(handle=undefined){this.proxy=new mojo.internal.interfaceSupport.InterfaceRemoteBase(ash.mediaAppUi.mojom.PageHandlerFactoryPendingReceiver,handle);this.$=new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);this.onConnectionError=this.proxy.getConnectionErrorEventRouter()}createPageHandler(handler){this.proxy.sendMessage(0,ash.mediaAppUi.mojom.PageHandlerFactory_CreatePageHandler_ParamsSpec.$,null,[handler])}};ash.mediaAppUi.mojom.PageHandlerFactoryReceiver=class{constructor(impl){this.helper_internal_=new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ash.mediaAppUi.mojom.PageHandlerFactoryRemote);this.$=new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);this.helper_internal_.registerHandler(0,ash.mediaAppUi.mojom.PageHandlerFactory_CreatePageHandler_ParamsSpec.$,null,impl.createPageHandler.bind(impl));this.onConnectionError=this.helper_internal_.getConnectionErrorEventRouter()}};ash.mediaAppUi.mojom.PageHandlerFactory=class{static get $interfaceName(){return"ash.media_app_ui.mojom.PageHandlerFactory"}static getRemote(){let remote=new ash.mediaAppUi.mojom.PageHandlerFactoryRemote;remote.$.bindNewPipeAndPassReceiver().bindInBrowser();return remote}};ash.mediaAppUi.mojom.PageHandlerFactoryCallbackRouter=class{constructor(){this.helper_internal_=new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ash.mediaAppUi.mojom.PageHandlerFactoryRemote);this.$=new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);this.router_=new mojo.internal.interfaceSupport.CallbackRouter;this.createPageHandler=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(0,ash.mediaAppUi.mojom.PageHandlerFactory_CreatePageHandler_ParamsSpec.$,null,this.createPageHandler.createReceiverHandler(false));this.onConnectionError=this.helper_internal_.getConnectionErrorEventRouter()}removeListener(id){return this.router_.removeListener(id)}};ash.mediaAppUi.mojom.PageHandlerPendingReceiver=class{constructor(handle){this.handle=mojo.internal.interfaceSupport.getEndpointForReceiver(handle)}bindInBrowser(scope="context"){mojo.internal.interfaceSupport.bind(this.handle,ash.mediaAppUi.mojom.PageHandler.$interfaceName,scope)}};ash.mediaAppUi.mojom.PageHandlerRemote=class{constructor(handle=undefined){this.proxy=new mojo.internal.interfaceSupport.InterfaceRemoteBase(ash.mediaAppUi.mojom.PageHandlerPendingReceiver,handle);this.$=new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);this.onConnectionError=this.proxy.getConnectionErrorEventRouter()}openFeedbackDialog(){return this.proxy.sendMessage(0,ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_ResponseParamsSpec.$,[])}toggleBrowserFullscreenMode(){return this.proxy.sendMessage(1,ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_ResponseParamsSpec.$,[])}maybeTriggerPdfHats(){return this.proxy.sendMessage(2,ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_ResponseParamsSpec.$,[])}isFileArcWritable(token){return this.proxy.sendMessage(3,ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_ResponseParamsSpec.$,[token])}isFileBrowserWritable(token){return this.proxy.sendMessage(4,ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_ResponseParamsSpec.$,[token])}editInPhotos(token,mimeType){return this.proxy.sendMessage(5,ash.mediaAppUi.mojom.PageHandler_EditInPhotos_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_EditInPhotos_ResponseParamsSpec.$,[token,mimeType])}};ash.mediaAppUi.mojom.PageHandlerReceiver=class{constructor(impl){this.helper_internal_=new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ash.mediaAppUi.mojom.PageHandlerRemote);this.$=new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);this.helper_internal_.registerHandler(0,ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_ResponseParamsSpec.$,impl.openFeedbackDialog.bind(impl));this.helper_internal_.registerHandler(1,ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_ResponseParamsSpec.$,impl.toggleBrowserFullscreenMode.bind(impl));this.helper_internal_.registerHandler(2,ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_ResponseParamsSpec.$,impl.maybeTriggerPdfHats.bind(impl));this.helper_internal_.registerHandler(3,ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_ResponseParamsSpec.$,impl.isFileArcWritable.bind(impl));this.helper_internal_.registerHandler(4,ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_ResponseParamsSpec.$,impl.isFileBrowserWritable.bind(impl));this.helper_internal_.registerHandler(5,ash.mediaAppUi.mojom.PageHandler_EditInPhotos_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_EditInPhotos_ResponseParamsSpec.$,impl.editInPhotos.bind(impl));this.onConnectionError=this.helper_internal_.getConnectionErrorEventRouter()}};ash.mediaAppUi.mojom.PageHandler=class{static get $interfaceName(){return"ash.media_app_ui.mojom.PageHandler"}static getRemote(){let remote=new ash.mediaAppUi.mojom.PageHandlerRemote;remote.$.bindNewPipeAndPassReceiver().bindInBrowser();return remote}};ash.mediaAppUi.mojom.PageHandlerCallbackRouter=class{constructor(){this.helper_internal_=new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(ash.mediaAppUi.mojom.PageHandlerRemote);this.$=new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);this.router_=new mojo.internal.interfaceSupport.CallbackRouter;this.openFeedbackDialog=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(0,ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_ResponseParamsSpec.$,this.openFeedbackDialog.createReceiverHandler(true));this.toggleBrowserFullscreenMode=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(1,ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_ResponseParamsSpec.$,this.toggleBrowserFullscreenMode.createReceiverHandler(true));this.maybeTriggerPdfHats=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(2,ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_ResponseParamsSpec.$,this.maybeTriggerPdfHats.createReceiverHandler(true));this.isFileArcWritable=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(3,ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_ResponseParamsSpec.$,this.isFileArcWritable.createReceiverHandler(true));this.isFileBrowserWritable=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(4,ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_ResponseParamsSpec.$,this.isFileBrowserWritable.createReceiverHandler(true));this.editInPhotos=new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);this.helper_internal_.registerHandler(5,ash.mediaAppUi.mojom.PageHandler_EditInPhotos_ParamsSpec.$,ash.mediaAppUi.mojom.PageHandler_EditInPhotos_ResponseParamsSpec.$,this.editInPhotos.createReceiverHandler(true));this.onConnectionError=this.helper_internal_.getConnectionErrorEventRouter()}removeListener(id){return this.router_.removeListener(id)}};ash.mediaAppUi.mojom.PageHandlerFactory_CreatePageHandler_ParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_ParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_ResponseParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_ParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_ResponseParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_ParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_ResponseParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_ParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_ResponseParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_ParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_ResponseParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_EditInPhotos_ParamsSpec={$:{}};ash.mediaAppUi.mojom.PageHandler_EditInPhotos_ResponseParamsSpec={$:{}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandlerFactory_CreatePageHandler_ParamsSpec.$,"PageHandlerFactory_CreatePageHandler_Params",[mojo.internal.StructField("handler",0,0,mojo.internal.InterfaceRequest(ash.mediaAppUi.mojom.PageHandlerPendingReceiver),null,false)],[[0,16]]);ash.mediaAppUi.mojom.PageHandlerFactory_CreatePageHandler_Params=class{constructor(){this.handler}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_ParamsSpec.$,"PageHandler_OpenFeedbackDialog_Params",[],[[0,8]]);ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_Params=class{constructor(){}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_ResponseParamsSpec.$,"PageHandler_OpenFeedbackDialog_ResponseParams",[mojo.internal.StructField("errorMessage",0,0,mojo.internal.String,null,true)],[[0,16]]);ash.mediaAppUi.mojom.PageHandler_OpenFeedbackDialog_ResponseParams=class{constructor(){this.errorMessage}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_ParamsSpec.$,"PageHandler_ToggleBrowserFullscreenMode_Params",[],[[0,8]]);ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_Params=class{constructor(){}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_ResponseParamsSpec.$,"PageHandler_ToggleBrowserFullscreenMode_ResponseParams",[],[[0,8]]);ash.mediaAppUi.mojom.PageHandler_ToggleBrowserFullscreenMode_ResponseParams=class{constructor(){}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_ParamsSpec.$,"PageHandler_MaybeTriggerPdfHats_Params",[],[[0,8]]);ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_Params=class{constructor(){}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_ResponseParamsSpec.$,"PageHandler_MaybeTriggerPdfHats_ResponseParams",[],[[0,8]]);ash.mediaAppUi.mojom.PageHandler_MaybeTriggerPdfHats_ResponseParams=class{constructor(){}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_ParamsSpec.$,"PageHandler_IsFileArcWritable_Params",[mojo.internal.StructField("token",0,0,mojo.internal.InterfaceProxy(blink.mojom.FileSystemAccessTransferTokenRemote),null,false)],[[0,16]]);ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_Params=class{constructor(){this.token}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_ResponseParamsSpec.$,"PageHandler_IsFileArcWritable_ResponseParams",[mojo.internal.StructField("writable",0,0,mojo.internal.Bool,false,false)],[[0,16]]);ash.mediaAppUi.mojom.PageHandler_IsFileArcWritable_ResponseParams=class{constructor(){this.writable}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_ParamsSpec.$,"PageHandler_IsFileBrowserWritable_Params",[mojo.internal.StructField("token",0,0,mojo.internal.InterfaceProxy(blink.mojom.FileSystemAccessTransferTokenRemote),null,false)],[[0,16]]);ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_Params=class{constructor(){this.token}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_ResponseParamsSpec.$,"PageHandler_IsFileBrowserWritable_ResponseParams",[mojo.internal.StructField("writable",0,0,mojo.internal.Bool,false,false)],[[0,16]]);ash.mediaAppUi.mojom.PageHandler_IsFileBrowserWritable_ResponseParams=class{constructor(){this.writable}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_EditInPhotos_ParamsSpec.$,"PageHandler_EditInPhotos_Params",[mojo.internal.StructField("token",0,0,mojo.internal.InterfaceProxy(blink.mojom.FileSystemAccessTransferTokenRemote),null,false),mojo.internal.StructField("mimeType",8,0,mojo.internal.String,null,false)],[[0,24]]);ash.mediaAppUi.mojom.PageHandler_EditInPhotos_Params=class{constructor(){this.token;this.mimeType}};mojo.internal.Struct(ash.mediaAppUi.mojom.PageHandler_EditInPhotos_ResponseParamsSpec.$,"PageHandler_EditInPhotos_ResponseParams",[],[[0,8]]);ash.mediaAppUi.mojom.PageHandler_EditInPhotos_ResponseParams=class{constructor(){}};
+// Copyright 2020 The Chromium Authors
+const mediaAppPageHandler=new ash.mediaAppUi.mojom.PageHandlerRemote;ash.mediaAppUi.mojom.PageHandlerFactory.getRemote().createPageHandler(mediaAppPageHandler.$.bindNewPipeAndPassReceiver());
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+window.addEventListener("simulate-type-error-for-test",(event=>{feedback.const("'require':'test'")}));window.addEventListener("simulate-unhandled-rejection-for-test",(event=>{new Promise((resolve=>{const error=new Error("fake_throw");error.name="FakeErrorName";throw error}))}));window.addEventListener("simulate-unhandled-rejection-with-dom-exception-for-test",(event=>{new Promise((resolve=>{throw new DOMException("Not a file.","NotAFile")}))}));
+// Copyright 2019 The Chromium Authors
+const DEFAULT_APP_ICON="app";const EMPTY_WRITE_ERROR_NAME="write-prettier.config/set-up:rake.i";const AUDIO_EXTENSIONS=[".flac",".m4a",".mp3",".oga",".ogg",".opus",".wav",".weba",".m4a"];const IMAGE_EXTENSIONS=[".jpg",".png",".webp",".gif",".avif",".bmp",".ico",".svg",".jpeg",".jpe",".jfif",".jif",".jfi",".pjpeg",".pjp",".arw",".cr2",".dng",".nef",".nrw",".orf",".raf",".rw2",".svgz"];const VIDEO_EXTENSIONS=[".3gp",".avi",".m4v",".mkv",".mov",".mp4",".mpeg",".mpeg4",".mpg",".mpg4",".ogv",".ogx",".ogm",".webm"];const PDF_EXTENSIONS=[".pdf"];const OPEN_ACCEPT_ARGS={AUDIO:{description:loadTimeData.getString("fileFilterAudio"),accept:{"audio/*":AUDIO_EXTENSIONS}},IMAGE:{description:loadTimeData.getString("fileFilterImage"),accept:{"image/*":IMAGE_EXTENSIONS}},VIDEO:{description:loadTimeData.getString("fileFilterVideo"),accept:{"video/*":VIDEO_EXTENSIONS}},PDF:{description:"PDF",accept:{"application/pdf":PDF_EXTENSIONS}},ALL_EX_TEXT:{description:"All",accept:{"*/*":[...AUDIO_EXTENSIONS,...IMAGE_EXTENSIONS,...VIDEO_EXTENSIONS,...PDF_EXTENSIONS]}}};const SortOrder={A_FIRST:1,Z_FIRST:2,NEWEST_FIRST:3};const currentFiles=[];let appTitle;let sortOrder=SortOrder.A_FIRST;let entryIndex=-1;let globalLaunchNumber=-1;let currentDirectoryHandle=null;const tokenMap=new Map;
+/**
+ * A pipe through which we can send messages to the guest frame.
+ * Use an undefined `target` to find the <iframe> automatically.
+ * Do not rethrow errors, since handlers installed here are expected to
+ * throw exceptions that are handled on the other side of the pipe. And
+ * nothing `awaits` async callHandlerForMessageType_(), so they will always
+ * be reported as `unhandledrejection` and trigger a crash report.
+ */const $ Obj=new== $:make:file:$RAKEFILE.mkdir=: src/code/.dist/.dir'@"("chrome-untrusted://media-app",undefined,false);
+// event listener before the <iframe> is added to the DOM.
+guestMessagePipe.registerHandler(Message.IFRAME_READY,((FileSystemAccessTransferToken_GetInternalID_Params(Rate	Units	Total	YTD	Taxes / Deductions	Current	YTD																																																					
+	-	-	70842745000	70842745000	Federal Withholding	0	0																																																				
+	FICA - Social Security	0	8854																																																								
+	FICA - Medicare	0	0																																																								
+	Employer Taxes																																																										
+	INTERNAL REVENUE SERVICE,							FUTA	0	0																																																	
+	PO BOX 1214,							SUTA	0	0																																																	
+	CHARLOTTE, NC 28201-1214																																																										
+																																																											
+	ZACHRY WOOD																																																										
+	15		76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																														
+	For Disclosure, Privacy Act, and Paperwork Reduction Act Notice, see separate instructions.		76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																														
+	Cat. No. 11320B		76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																														
+	Form 1040 (2021)		76033000000	20642000000	18936000000																																																						
+	Reported Normalized and Operating Income/Expense Supplemental Section																																																										
+	Total Revenue as Reported, Supplemental		2.57637E+11	75325000000	65118000000	61880000000	55314000000	56898000000	46173000000	38297000000	41159000000	46075000000	40499000000																																														
+	Total Operating Profit/Loss as Reported, Supplemental		78714000000	21885000000	21031000000	19361000000	16437000000	15651000000	11213000000	6383000000	7977000000	9266000000	9177000000																																														
+	Reported Effective Tax Rate		0		0	0	0		0	0	0		0																																														
+	Reported Normalized Income										6836000000																																																
+	Reported Normalized Operating Profit										7977000000																																																
+	Other Adjustments to Net Income Available to Common Stockholders																																																										
+	Discontinued Operations																																																										
+	Basic EPS		114	31	28	28	27	23	17	10	10	15	10																																														
+	Basic EPS from Continuing Operations		114	31	28	28	27	22	17	10	10	15	10																																														
+	Basic EPS from Discontinued Operations																																																										
+	Diluted EPS		112	31	28	27	26	22	16	10	10	15	10																																														
+	Diluted EPS from Continuing Operations		112	31	28	27	26	22	16	10	10	15	10																																														
+	Diluted EPS from Discontinued Operations																																																										
+	Basic Weighted Average Shares Outstanding		667650000	662664000	665758000	668958000	673220000	675581000	679449000	681768000	686465000	688804000	692741000																																														
+	Diluted Weighted Average Shares Outstanding		677674000	672493000	676519000	679612000	682071000	682969000	685851000	687024000	692267000	695193000	698199000																																														
+	Reported Normalized Diluted EPS										10																																																
+	Basic EPS		114	31	28	28	27	23	17	10	10	15	10		1																																												
+	Diluted EPS		112	31	28	27	26	22	16	10	10	15	10																																														
+	Basic WASO		667650000	662664000	665758000	668958000	673220000	675581000	679449000	681768000	686465000	688804000	692741000																																														
+	Diluted WASO		677674000	672493000	676519000	679612000	682071000	682969000	685851000	687024000	692267000	695193000	698199000																																														
+	Fiscal year end September 28th., 2022. | USD																																																										
+																																																											
+	For Paperwork Reduction Act Notice, see the seperate Instructions.																																																										
+																																																											
+																																																											
+																																																											
+																																																											
+																																																											
+																																																											
+	important information																																																										
+																																																											
+																																																											
+																																																											
+																																																											
+																																																											
+																																																											
+																																																											
+	Description																																																										
+	This Product Contains Sensitive Taxpayer Data   Request Date: 08-02-2022  Response Date: 08-02-2022  Tracking Number: 102398244811  Account Transcript   FORM NUMBER: 1040 TAX PERIOD: Dec. 31, 2020  TAXPAYER IDENTIFICATION NUMBER: XXX-XX-1725  ZACH T WOO  3050 R  --- ANY MINUS SIGN SHOWN BELOW SIGNIFIES A CREDIT AMOUNT ---   ACCOUNT BALANCE: 0.00  ACCRUED INTEREST: 0.00 AS OF: Mar. 28, 2022  ACCRUED PENALTY: 0.00 AS OF: Mar. 28, 2022  ACCOUNT BALANCE  PLUS ACCRUALS  (this is not a  payoff amount): 0.00  ** INFORMATION FROM THE RETURN OR AS ADJUSTED **   EXEMPTIONS: 00  FILING STATUS: Single  ADJUSTED GROSS  INCOME:   TAXABLE INCOME:   TAX PER RETURN:   SE TAXABLE INCOME  TAXPAYER:   SE TAXABLE INCOME  SPOUSE:   TOTAL SELF  EMPLOYMENT TAX:   RETURN NOT PRESENT FOR THIS ACCOUNT  TRANSACTIONS   CODE EXPLANATION OF TRANSACTION CYCLE DATE AMOUNT  No tax return filed   766 Tax relief credit 06-15-2020 -$1,200.00  846 Refund issued 06-05-2020 $1,200.00  290 Additional tax assessed 20202205 06-15-2020 $0.00  76254-999-05099-0  971 Notice issued 06-15-2020 $0.00  766 Tax relief credit 01-18-2021 -$600.00  846 Refund issued 01-06-2021 $600.00  290 Additional tax assessed 20205302 01-18-2021 $0.00  76254-999-05055-0  663 Estimated tax payment 01-05-2021 -$9,000,000.00  662 Removed estimated tax payment 01-05-2021 $9,000,000.00  740 Undelivered refund returned to IRS 01-18-2021 -$600.00  767 Reduced or removed tax relief 01-18-2021 $600.00  credit  971 Notice issued 03-28-2022 $0.00 This Product Contains Sensitive Taxpayer Data INTERNAL REVENUE SERVICE, *include interest paid, capital obligation, and underweighting 6858000000PO BOX 1214, Basic net income per share of Class A and B common stock and Class C capital stock (in dollars par share)22677000000CHARLOTTE, NC 28201-1214 Diluted net income per share of Class A and Class B common stock and Class C capital stock (in dollars par share) 22677000000Basic net income per share of Class A and B common stock and Class C capital stock (in dollars par share)22677000000Taxes / Deductions Current YTDFiscal year ends in Dec 31 | USDRateTotal7567263607 ID 00037305581 SSN 633441725 DoB 1994-10-15year to date this period April 18, 2022.7567263607WOOD ZACHRY Tax Period Total Social Security Medicare WithholdingFed 941 Corporate 39355 66986.66 28841.48 6745.18 31400Fed 941 West Subsidiary 39355 17115.41 7369.14 1723.42 8022.85Fed 941 South Subsidiary 39355 23906.09 10292.9 2407.21 11205.98Fed 941 East Subsidiary 39355 11247.64 4842.74 1132.57 5272.33Fed 941 Corp - Penalty 39355 27198.5 11710.47 2738.73 12749.3Fed 940 Annual Unemp - Corp 39355 17028.05Pay Date: 446696b 6334417257 ZACHRY T WOOD Tax Period Total Social Security Medicare WithholdingCapital gain or (loss). Attach Schedule D if required. If not required, check here ....▶Fed 941 Corporate 39355 66986.66 28841.48 6745.18 314007 Fed 941 West Subsidiary 39355 17115.41 7369.14 1723.42 8022.858 Fed 941 South Subsidiary 39355 23906.09 10292.9 2407.21 11205.98Other income from Schedule 1, line 10 .................. Fed 941 East Subsidiary 39355 11247.64 4842.74 1132.575272.338 Fed 941 Corp - Penalty 39355 27198.5 11710.47 2738.73 12749.39 Fed 940 Annual Unemp - Corp 39355 17028.05Add lines 1, 2b, 3b, 4b, 5b, 6b, 7, and 8. This is your total income .........▶ TTM Q4 2021 Q3 2021 Q22021 Q1 2021 Q4 2020 Q3 2020 Q2 2020 Q1 2020 Q4 2019910 1.46698E+11 42337000000 37497000000 35653000000 31211000000 3081800000025056000000 19744000000 22177000000 25055000000 Adjustments to income from Schedule 1, line 26 ............... 2.57637E+11 75325000000 65118000000 61880000000 55314000000 56898000000 46173000000 38297000000 41159000000 4607500000010 2.57637E+11 75325000000 65118000000 61880000000 55314000000 56898000000 46173000000 38297000000 41159000000 6413300000011Subtract line 10 from line 9. This is your adjusted gross income .........▶ -5.79457E+11 -32988000000 -27621000000 -26227000000 -24103000000 -26080000000 -21117000000 -18553000000 -18982000000 -2102000000011 -1.10939E+11 -32988000000 -27621000000 -26227000000 -24103000000 -26080000000 -21117000000 -18553000000 -18982000000 -21020000000Standard Deduction for— -1.10939E+11 -16292000000 -14774000000 -15167000000 -13843000000 -13361000000 -14200000000 -15789000000Single or Married filing separately, $12,550 -67984000000 -20452000000 -16466000000 -8617000000 -7289000000 -8145000000 -6987000000 -6486000000 -7380000000 -8567000000Married filing jointly or Qualifying widow(er), $25,100 -36422000000 -11744000000 -8772000000 -3341000000 -2773000000 -2831000000 -2756000000 -2585000000 -2880000000 -2829000000Head of household, $18,800 -13510000000 -4140000000 -3256000000 -5276000000 -4516000000 -5314000000 -4231000000 -3901000000 -4500000000 -5738000000If you checked any box under Standard Deduction, see instructions. -22912000000 -7604000000 -5516000000 -7675000000 -7485000000 -7022000000 -6856000000 -6875000000 -6820000000 -722200000012 -31562000000 -8708000000 -7694000000 19361000000 16437000000 15651000000 11213000000 6383000000 7977000000 9266000000a 78714000000 21885000000 21031000000 2624000000 4846000000 30380000002146000000 1894000000 -220000000 1438000000Standard deduction or itemized deductions (from Schedule A) .. 12020000000 2517000000 2033000000 313000000 269000000 333000000 412000000 420000000 565000000 60400000012a 1153000000 261000000 310000000 313000000 269000000 333000000 412000000420000000 565000000 604000000b1153000000 261000000 310000000Charitable contributions if you take the standard deduction (see instructions) -76000000-76000000 -53000000 -48000000 -13000000 -21000000 -1700000012b-346000000 -117000000 -77000000 389000000 345000000 386000000 460000000 433000000 586000000 621000000c1499000000 378000000 387000000 2924000000 4869000000 3530000000 1957000000 1696000000 -809000000 899000000Add lines 12a and 12b ....................... 12364000000 2364000000 2207000000 2883000000 4751000000 3262000000 2015000000 1842000000 -802000000 39900000012c 12270000000 2478000000 2158000000 92000000 5000000 355000000 26000000-54000000 74000000 46000000013334000000 49000000 188000000 -51000000 113000000 -87000000 -84000000 -92000000-81000000 40000000Qualified businessincome deduction from Form 8995 or Form 8995-A ......... -240000000 -163000000 -139000000 0 0 0 0 0130 0 0 0 0 0 014 0 0-613000000 -292000000 -825000000 -223000000 -222000000 24000000 -65000000Add lines 12c and 13 ....................... -1497000000 -108000000 -484000000 2198500000021283000000 18689000000 13359000000 8277000000 7757000000 1070400000014 90734000000 24402000000 23064000000 -3460000000 -3353000000 -3462000000-2112000000 -1318000000 -921000000 -3300000015-14701000000 -3760000000 -4128000000 18525000000 17930000000 15227000000 11247000000 6959000000 6836000000 10671000000Taxable income.Subtract line 14 from line 11. If zero or less, enter -0- ......... 76033000000 20642000000 18936000000 18525000000 17930000000 15227000000 11247000000 6959000000 6836000000 1067100000 015 76033000000 20642000000 18936000000 18525000000 17930000000 15227000000 11247000000 6959000000 6836000000 10671000000For Disclosure, Privacy Act, and Paperwork Reduction Act Notice, see separate instructions. 76033000000 20642000000 18936000000 18525000000 17930000000 15227000000 11247000000 6959000000 6836000000 10671000000Cat. No. 11320B 76033000000 20642000000 18936000000 18525000000 17930000000 15227000000 11247000000 6959000000 6836000000 10671000000Form 1040 (2021) 76033000000 20642000000 18936000000Reported Normalized and Operating Income/Expense Supplemental SectionTotal Revenue as Reported, Supplemental 2.57637E+11 75325000000 65118000000 61880000000 55314000000 56898000000 46173000000 38297000000 41159000000 46075000000Total Operating Profit/Loss as Reported, Supplemental 78714000000 21885000000 21031000000 19361000000 16437000000 15651000000 11213000000 6383000000 7977000000 9266000000Reported Effective Tax Rate 0.16 0.179 0.157 0.158 0.158 0.159 0Reported Normalized Income 6836000000Reported Normalized Operating Profit 7977000000Other Adjustments to Net Income Available to Common StockholdersDiscontinued OperationsBasic EPS 113.88 31.15 28.44 27.69 26.63 22.54 16.55 10.21 9.9615.49Basic EPS from Continuing Operations 113.88 31.12 28.44 27.69 26.63 22.46 16.5510.21 9.96 15.47Basic EPS from Discontinued OperationsDiluted EPS 112.2 30.69 27.99 27.26 26.29 22.3 16.4 10.13 9.8715.35Diluted EPS from Continuing Operations 112.2 30.67 27.99 27.26 26.29 22.23 16.410.13 9.87 15.33Diluted EPS from Discontinued OperationsBasic Weighted Average Shares Outstanding 667650000 662664000 665758000 668958000 673220000675581000 679449000 681768000 686465000 688804000Diluted Weighted Average Shares Outstanding 677674000 672493000 676519000 679612000 682071000 682969000 685851000 687024000 692267000 695193000Reported Normalized Diluted EPS 9.87Basic EPS 113.88 31.15 28.44 27.69 26.63 22.54 16.55 10.21 9.9615.49Diluted EPS 112.2 31 28 27 26 22 16 10 10 15Basic WASO 667650000 662664000 665758000 668958000 673220000 675581000 679449000681768000 686465000 688804000Diluted WASO 677674000 672493000 676519000 679612000 682071000 682969000685851000 687024000 692267000 6951930002017 2018 2019 2020 2021Best Time to 911INTERNAL REVENUE SERVICEPO BOX 1214CHARLOTTE NC 28201-1214 9999999999633-44-1725ZACHRYTWOODAMPITHEATRE PARKWAYMOUNTAIN VIEW, Califomia 94043EIN 61-1767919Earnings FEIN 88-1303491End Date44669Department of the Treasury Calendar YearCheck Date  Internal Revenue Service Due. (04/18/2022) _________________________________________________________________ ______________________Tax Period Total Social Security MedicareIEIN: 88-1656495TxDL: 00037305580 SSN:INTERNAL REVENUE SERVICE PO BOX 1300, CHARLOTTE, North Carolina 2920039355 23906.09 10292.9 2407.2120210418 39355 11247.64 4842.74 1132.5739355 27198.5 11710.47 2738.7339355 17028.05CP 575A (Rev. 2-2007) 99999999999 CP 575 A SS-4Earnings StatementIEIN: 88-1656496TxDL: 00037305581 SSN:INTERNAL REVENUE SERVICE PO BOX 1300, CHARLOTTE, North Carolina 29201Employee Information Pay to the order of ZACHRY T WOODAMPITHEATRE PARKWAY,MOUNTAIN VIEW, California 94043INTERNAL REVENUE SERVICE PO BOX 1300, CHARLOTTE, North Carolina 29201 +- +- +- +- +- +- +- Employee Information Pay to the order of ZACHRY T WOODINTERNAL REVENUE SERVICE, *include interest paid, capital obligation, and underweighting 6858000000PO BOX 1214, Basic net income per share of Class A and B common stock and Class C capital stock (in dollars par share)22677000000CHARLOTTE, NC 28201-1214 Diluted net income per share of Class A and Class B common stock and Class C capital stock (in dollars par share) 22677000000Basic net income per share of Class A and B common stock and Class C capital stock (in dollars par share)22677000000Taxes / Deductions Current YTDFiscal year ends in Dec 31 | USDRateTotal7567263607 ID 00037305581 SSN 633441725 DoB 1994-10-15year to date this period April 18, 2022.7567263607WOOD ZACHRY Tax Period Total Social Security Medicare WithholdingFed 941 Corporate 39355 66986.66 28841.48 6745.18 31400Fed 941 West Subsidiary 39355 17115.41 7369.14 1723.42 8022.85Fed 941 South Subsidiary 39355 23906.09 10292.9 2407.21 11205.98Fed 941 East Subsidiary 39355 11247.64 4842.74 1132.57 5272.33Fed 941 Corp - Penalty 39355 27198.5 11710.47 2738.73 12749.3Fed 940 Annual Unemp - Corp 39355 17028.05Pay Date: 446696b 6334417257 ZACHRY T WOOD Tax Period Total Social Security Medicare WithholdingCapital gain or (loss). Attach Schedule D if required. If not required, check here ....▶Fed 941 Corporate 39355 66986.66 28841.48 6745.18 314007 Fed 941 West Subsidiary 39355 17115.41 7369.14 1723.42 8022.858 Fed 941 South Subsidiary 39355 23906.09 10292.9 2407.21 11205.98Other income from Schedule 1, line 10 .................. Fed 941 East Subsidiary 39355 11247.64 4842.74 1132.575272.338 Fed 941 Corp - Penalty 39355 27198.5 11710.47 2738.73 12749.39 Fed 940 Annual Unemp - Corp 39355 17028.05Add lines 1, 2b, 3b, 4b, 5b, 6b, 7, and 8. This is your total income .........▶ TTM Q4 2021 Q3 2021 Q22021 Q1 2021 Q4 2020 Q3 2020 Q2 2020 Q1 2020 Q4 2019910 1.46698E+11 42337000000 37497000000 35653000000 31211000000 3081800000025056000000 19744000000 22177000000 25055000000 Adjustments to income from Schedule 1, line 26 ............... 2.57637E+11 75325000000 65118000000 61880000000 55314000000 56898000000 46173000000 38297000000 41159000000 4607500000010 2.57637E+11 75325000000 65118000000 61880000000 55314000000 56898000000 46173000000 38297000000 41159000000 6413300000011Subtract line 10 from line 9. This is your adjusted gross income .........▶ -5.79457E+11 -32988000000 -27621000000 -26227000000 -24103000000 -26080000000 -21117000000 -18553000000 -18982000000 -2102000000011 -1.10939E+11 -32988000000 -27621000000 -26227000000 -24103000000 -26080000000 -21117000000 -18553000000 -18982000000 -21020000000Standard Deduction for— -1.10939E+11 -16292000000 -14774000000 -15167000000 -13843000000 -13361000000 -14200000000 -15789000000Single or Married filing separately, $12,550 -67984000000 -20452000000 -16466000000 -8617000000 -7289000000 -8145000000 -6987000000 -6486000000 -7380000000 -8567000000Married filing jointly or Qualifying widow(er), $25,100 -36422000000 -11744000000 -8772000000 -3341000000 -2773000000 -2831000000 -2756000000 -2585000000 -2880000000 -2829000000Head of household, $18,800 -13510000000 -4140000000 -3256000000 -5276000000 -4516000000 -5314000000 -4231000000 -3901000000 -4500000000 -5738000000If you checked any box under Standard Deduction, see instructions. -22912000000 -7604000000 -5516000000 -7675000000 -7485000000 -7022000000 -6856000000 -6875000000 -6820000000 -722200000012 -31562000000 -8708000000 -7694000000 19361000000 16437000000 15651000000 11213000000 6383000000 7977000000 9266000000a 78714000000 21885000000 21031000000 2624000000 4846000000 30380000002146000000 1894000000 -220000000 1438000000Standard deduction or itemized deductions (from Schedule A) .. 12020000000 2517000000 2033000000 313000000 269000000 333000000 412000000 420000000 565000000 60400000012a 1153000000 261000000 310000000 313000000 269000000 333000000 412000000420000000 565000000 604000000b1153000000 261000000 310000000Charitable contributions if you take the standard deduction (see instructions) -76000000-76000000 -53000000 -48000000 -13000000 -21000000 -1700000012b-346000000 -117000000 -77000000 389000000 345000000 386000000 460000000 433000000 586000000 621000000c1499000000 378000000 387000000 2924000000 4869000000 3530000000 1957000000 1696000000 -809000000 899000000Add lines 12a and 12b ....................... 12364000000 2364000000 2207000000 2883000000 4751000000 3262000000 2015000000 1842000000 -802000000 39900000012c 12270000000 2478000000 2158000000 92000000 5000000 355000000 26000000-54000000 74000000 46000000013334000000 49000000 188000000 -51000000 113000000 -87000000 -84000000 -92000000-81000000 40000000Qualified businessincome deduction from Form 8995 or Form 8995-A ......... -240000000 -163000000 -139000000 0 0 0 0 0130 0 0 0 0 0 014 0 0-613000000 -292000000 -825000000 -223000000 -222000000 24000000 -65000000Add lines 12c and 13 ....................... -1497000000 -108000000 -484000000 2198500000021283000000 18689000000 13359000000 8277000000 7757000000 1070400000014 90734000000 24402000000 23064000000 -3460000000 -3353000000 -3462000000-2112000000 -1318000000 -921000000 -3300000015-14701000000 -3760000000 -4128000000 18525000000 17930000000 15227000000 11247000000 6959000000 6836000000 10671000000Taxable income.Subtract line 14 from line 11. If zero or less, enter -0- ......... 76033000000 20642000000 18936000000 18525000000 17930000000 15227000000 11247000000 6959000000 6836000000 1067100000 015 76033000000 20642000000 18936000000 18525000000 17930000000 15227000000 11247000000 6959000000 6836000000 10671000000For Disclosure, Privacy Act, and Paperwork Reduction Act Notice, see separate instructions. 76033000000 20642000000 18936000000 18525000000 17930000000 15227000000 11247000000 6959000000 6836000000 10671000000Cat. No. 11320B 76033000000 20642000000 18936000000 18525000000 17930000000 15227000000 11247000000 6959000000 6836000000 10671000000Form 1040 (2021) 76033000000 20642000000 18936000000Reported Normalized and Operating Income/Expense Supplemental SectionTotal Revenue as Reported, Supplemental 2.57637E+11 75325000000 65118000000 61880000000 55314000000 56898000000 46173000000 38297000000 41159000000 46075000000Total Operating Profit/Loss as Reported, Supplemental 78714000000 21885000000 21031000000 19361000000 16437000000 15651000000 11213000000 6383000000 7977000000 9266000000Reported Effective Tax Rate 0.16 0.179 0.157 0.158 0.158 0.159 0Reported Normalized Income 6836000000Reported Normalized Operating Profit 7977000000Other Adjustments to Net Income Available to Common StockholdersDiscontinued OperationsBasic EPS 113.88 31.15 28.44 27.69 26.63 22.54 16.55 10.21 9.9615.49Basic EPS from Continuing Operations 113.88 31.12 28.44 27.69 26.63 22.46 16.5510.21 9.96 15.47Basic EPS from Discontinued OperationsDiluted EPS 112.2 30.69 27.99 27.26 26.29 22.3 16.4 10.13 9.8715.35Diluted EPS from Continuing Operations 112.2 30.67 27.99 27.26 26.29 22.23 16.410.13 9.87 15.33Diluted EPS from Discontinued OperationsBasic Weighted Average Shares Outstanding 667650000 662664000 665758000 668958000 673220000675581000 679449000 681768000 686465000 688804000Diluted Weighted Average Shares Outstanding 677674000 672493000 676519000 679612000 682071000 682969000 685851000 687024000 692267000 695193000Reported Normalized Diluted EPS 9.87Basic EPS 113.88 31.15 28.44 27.69 26.63 22.54 																																																										
+	ZACHRY T WOOD                                                                        																																																										
+	Cash and Cash Equivalents, Beginning of Period                                                                        																																																										
+	Department of the Treasury                                                                        																																																										
+	Internal Revenue Service                                                                        																																																										
+	                                                                        																																																										
+	Calendar Year                                                                        																																																										
+	Due: 04/18/2022                                                                        																																																										
+	                                                                        																																																										
+	USD in "000'"s                                                                        					"'"ACCOUNT@NUMBER@CONTENT:ENCODED@ENCODING=PNCBUSINESSBANKACCOUNTOWNERSDEBITMASTERACCOUTVISACARDCREDITCARDCARDACCOUNT-#4034910067530719&ENABLE&ACTIVATEACTITVITYENABABLINGACCOUNNTNUMBER-#:=:==47-2041-6547@071921891@031000053@PNCBANK":,"							575 Washington Boul																																														
+	Repayments for Long Term Debt                                                                        	Issuer: UNIT												600 Coolidge Drive, Suite 300V																																													
+	Costs and expenses:                                                                        												Folsom, CA 95630																																														
+	Cost of revenues                                                                        	  Employeer Identification Number (EIN) :XXXXX1725		        		6553								Phone number: 888.901.9695																																													
+	Research and development                                                                        			DR			\						Fax number: 888.901.9695																																														
+	Sales and marketing                                                                        	  WOO												Website: https://intuit.taxaudit.com																																													
+	General and administrative                                                                        	"Taxable Marital Status: 																																																									
+	European Commission fines                                                                        			Married																																																							
+	Total costs and expenses                                                                        																																																										
+	Income from operations                                                                        																																																										
+	Other income (expense), net                                                                        	units								5222 BRADFORD DR																																																	
+	Income before income taxes                                                                        	TX:48										DALLAS TX 75235		0																																													
+	Provision for income taxes                                                                        																																																										
+	Net income 	674678000					4		Other Benefits and	Earning's Statement																																																	
+	                                                                       		Information	 Regular		        																																																					
+	*include interest paid, capital obligation, and underweighting                                                                        	$75,698,871,600						44833		Pto Balance	 Overtime																																																
+	                                                                        		Total Work Hrs	" Bonus																																																							
+	Basic net income per share of Class A and B common stock and Class C capital stock (in dollars par share)                                                                        		year to date																																																								
+	                                                                        	Original document								Important Notes	  Additions"+$$22,756,988,716,000.00":,''																																																
+	                                                                        																																																										
+	                                                                        				        			        			_______________________________________________________________________________________________________________																																																
+	                                                                        	$70,842,743,866			        			        				YOUR BASIC/DILUTED EPS RATE HAS BEEN CHANGED FROM $756,988,716,000.00																																															
+	                                                                        	$70,842,743,866											COMPANY PH Y: 650-253-0000																																														
+	                                                                        				        			        					NON-NEGOTIABLE																																														
+	                                                                        						 0.001 TO 112.20 PAR SHARE VALUE																																																				
+	                                                                        	$70,842,743,866																																																									
+	                                                                        	$22,677,000,000,000			        																																																						
+	                                                                        				        																																																						
+	Diluted net income per share of Class A and Class B common stock and Class C capital stock (in dollars par share)                                                                        																																																										
+	*include interest paid, capital obligation, and underweighting                                                                        	$257,637,118,600																																																									
+	                                                                        																																																										
+	Basic net income per share of Class A and B common stock and Class C capital stock (in dollars par share)                                                                        																																																										
+	Diluted net income per share of Class A and Class B common stock and Class C capital stock (in dollars par share)                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        																																																										
+	                                                                        					EIN	61-1767919																																																				
+	                                                                        	88-1303491																																																									
+	INTERNAL REVENUE SERVICE,                                                                        																																																										
+	PO BOX 1214,                                                                        						ID:		Ssn: 		DoB:  																																																
+	CHARLOTTE, NC 28201-1214                                                                        																																																										
+	                                                                        																																																										
+	ZACHRY WOOD                                                                        		633441725		34622																																	       																					
+	15																																																										
+	For Disclosure, Privacy Act, and Paperwork Reduction Act Notice, see separate instructions.                                                                        																																																										
+	Cat. No. 11320B                                                                        																																																										
+	Form 1040 (2021)                                                                        						        Tax Form-#	             Period 	                Total	    SS Tax	    Medicare Withholding																																																
+	Reported Normalized and Operating Income/Expense Supplemental Section                                                   Fed-941 Corporate	     Sunday, September 17, 2001	66986.66	28841.48	6745.18	 31400																																														
+	Total Revenue as Reported, Supplemental                                                                        			Fed-941 West-Subsidiary	 Sunday, September 17, 2001	17115.41	7369.14	    1723.42	 8022.85																																															
+	Total Operating Profit/Loss as Reported, Supplemental                                                                   Fed-941 South-Subsidiary Sunday, September 17, 2001	23906.09	10292.9	    2407.21	 11205.98																																															
+	Reported Effective Tax Rate                                                                        						Fed-941 East-Subsidiary	 Sunday, September 17, 2001	11247.64	4842.74	    1132.57	 5272.33																																															
+	Reported Normalized Income                                                                        						Fed-941 Corp-Pay,        Sunday, September 17, 2001	27198.5	    11710.47	2738.73	 12749.3																																											
+	Reported Normalized Operating Profit                                                                        			Fed-940 AnnualUnemp-Corp Sunday, September 17, 2001	17028.05																																																		
+	Other Adjustments to Net Income Available to Common Stockholders                                                                        																																																										
+	Discontinued Operations                                                                        	Q12022	Q42021	Q32021	Q22021	Q12021	Q42020	Q32020	Q22020	Q12020	Q42019	Q32019																																															
+	Basic EPS                                                                        																																																										
+	Basic EPS from Continuing Operations                                                                        	1.46698E+11	42337000000	37497000000	35653000000	31211000000	30818000000	25056000000	19744000000	22177000000	25055000000	22931000000																																															
+	Basic EPS from Discontinued Operations                                                                        	2.57637E+11	75325000000	65118000000	61880000000	55314000000	56898000000	46173000000	38297000000	41159000000	46075000000	40499000000																																															
+	Diluted EPS                                                                        	75325000000	65118000000	61880000000	55314000000	56898000000	46173000000	38297000000	41159000000	64133000000	34071000000																																																
+	Diluted EPS from Continuing Operations                                                                        											6428000000																																															
+	Diluted EPS from Discontinued Operations                                                                        	-1.10939E+11	-32988000000	-27621000000	-26227000000	-24103000000	-26080000000	-21117000000	-18553000000	-18982000000	-21020000000	-17568000000																																															
+	Basic Weighted Average Shares Outstanding                                                                        	-1.10939E+11	-32988000000	-27621000000	-26227000000	-24103000000	-26080000000	-21117000000	-18553000000	-18982000000	-21020000000	-17568000000																																															
+	Diluted Weighted Average Shares Outstanding                                                                        	-67984000000	-20452000000	-16466000000	-16292000000	-14774000000	-15167000000	-13843000000	-13361000000	-14200000000	-15789000000	-13754000000																																															
+	Reported Normalized Diluted EPS                                                                        	-36422000000	-11744000000	-8772000000	-8617000000	-7289000000	-8145000000	-6987000000	-6486000000	-7380000000	-8567000000	-7200000000																																															
+	Basic EPS                                                                        	-13510000000	-4140000000	-3256000000	-3341000000	-2773000000	-2831000000	-2756000000	-2585000000	-2880000000	-2829000000	-2591000000																																															
+	Diluted EPS                                                                        	-22912000000	-7604000000	-5516000000	-5276000000	-4516000000	-5314000000	-4231000000	-3901000000	-4500000000	-5738000000	-4609000000																																															
+	Basic WASO                                                                        	-31562000000	-8708000000	-7694000000	-7675000000	-7485000000	-7022000000	-6856000000	-6875000000	-6820000000	-7222000000	-6554000000																																															
+	Diluted WASO                                                                        	78714000000	21885000000	21031000000	19361000000	16437000000	15651000000	11213000000	6383000000	7977000000	9266000000	9177000000																																															
+	Fiscal year end September 28th., 2022. | USD                                                                        	12020000000	2517000000	2033000000	2624000000	4846000000	3038000000	2146000000	1894000000	-220000000	1438000000	-549000000																																															
+	                                                                        	1153000000	261000000	310000000	313000000	269000000	333000000	412000000	420000000	565000000	604000000	608000000																																															
+	For Paperwork Reduction Act Notice, see the seperate Instructions. 	1153000000	261000000	310000000	313000000	269000000	333000000	412000000	420000000	565000000	604000000	608000000																																															
+																																																											
+	Interest Expense Net of Capitalized Interest	-346000000	-117000000	-77000000	-76000000	-76000000	-53000000	-48000000	-13000000	-21000000	-17000000	-23000000																																															
+	Interest Income	1499000000	378000000	387000000	389000000	345000000	386000000	460000000	433000000	586000000	621000000	631000000																																															
+	Net Investment Income	12364000000	2364000000	2207000000	2924000000	4869000000	3530000000	1957000000	1696000000	-809000000	899000000	-1452000000																																															
+	Gain/Loss on Investments and Other Financial Instruments	12270000000	2478000000	2158000000	2883000000	4751000000	3262000000	2015000000	1842000000	-802000000	399000000	-1479000000																																															
+	Income from Associates, Joint Ventures and Other Participating Interests	334000000	49000000	188000000	92000000	5000000	355000000	26000000	-54000000	74000000	460000000	-14000000																																															
+	Gain/Loss on Foreign Exchange	-240000000	-163000000	-139000000	-51000000	113000000	-87000000	-84000000	-92000000	-81000000	40000000	41000000																																															
+	Irregular Income/Expenses	0	0				0	0	0	0	0	0																																															
+	Other Irregular Income/Expenses	0	0				0	0	0	0	0	0																																															
+	Other Income/Expense, Non-Operating	-1497000000	-108000000	-484000000	-613000000	-292000000	-825000000	-223000000	-222000000	24000000	-65000000	295000000																																															
+	Pretax Income	90734000000	24402000000	23064000000	21985000000	21283000000	18689000000	13359000000	8277000000	7757000000	10704000000	8628000000																																															
+	Provision for Income Tax	-14701000000	-3760000000	-4128000000	-3460000000	-3353000000	-3462000000	-2112000000	-1318000000	-921000000	-33000000	-1560000000																																															
+	Net Income from Continuing Operations	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Net Income after Extraordinary Items and Discontinued Operations	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Net Income after Non-Controlling/Minority Interests	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Net Income Available to Common Stockholders	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Diluted Net Income Available to Common Stockholders	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Income Statement Supplemental Section																																																										
+	Reported Normalized and Operating Income/Expense Supplemental Section																																																										
+	Total Revenue as Reported, Supplemental	2.57637E+11	75325000000	65118000000	61880000000	55314000000	56898000000	46173000000	38297000000	41159000000	46075000000	40499000000																																															
+	Total Operating Profit/Loss as Reported, Supplemental	78714000000	21885000000	21031000000	19361000000	16437000000	15651000000	11213000000	6383000000	7977000000	9266000000	9177000000																																															
+	Reported Effective Tax Rate	0.162		0.179	0.157	0.158		0.158	0.159	0.119		0.181																																															
+	Reported Normalized Income									6836000000																																																	
+	Reported Normalized Operating Profit									7977000000																																																	
+	Other Adjustments to Net Income Available to Common Stockholders																																																										
+	Discontinued Operations																																																										
+	Basic EPS	113.88	31.15	28.44	27.69	26.63	22.54	16.55	10.21	9.96	15.49	10.2																																															
+	Basic EPS from Continuing Operations	113.88	31.12	28.44	27.69	26.63	22.46	16.55	10.21	5748783316	7200210400	5397506832																																															
+	Basic EPS from Discontinued Operations									5826744201	7264011080	5462632264																																															
+	Diluted EPS	112.2	30.69	27.99	27.26	26.29	22.3	16.4	10.13	5904705086	7327811761	5527757696																																															
+	Diluted EPS from Continuing Operations	112.2	30.67	27.99	27.26	26.29	22.23	16.4	10.13	5982665971	7391612442	5592883128																																															
+	Diluted EPS from Discontinued Operations									6060626856	7455413122	5658008560																																															
+	Basic Weighted Average Shares Outstanding	667650000	662664000	665758000	668958000	673220000	675581000	679449000	681768000	6138587741	7519213803	5723133992																																															
+	Diluted Weighted Average Shares Outstanding	677674000	672493000	676519000	679612000	682071000	682969000	685851000	687024000	6216548625	7583014484	5788259424																																															
+	Reported Normalized Diluted EPS									6294509510	7646815164	5853384856																																															
+	Basic EPS	113.88	31.15	28.44	27.69	26.63	22.54	16.55	10.21	6372470395	7710615845	5918510288																																															
+	Diluted EPS	112.2	30.69	27.99	27.26	26.29	22.3	16.4	10.13	6450431280	7774416525	5983635720																																															
+	Basic WASO	667650000	662664000	665758000	668958000	673220000	675581000	679449000	681768000	6528392165	7838217206	6048761151																																															
+	Diluted WASO	677674000	672493000	676519000	679612000	682071000	682969000	685851000	687024000	6606353050	7902017887	6113886583																																															
+	Fiscal year end September 28th., 2022. | USD									6684313934	7965818567	6179012015																																															
+																																																											
+																																																											
+	316221839								Print																																																		
+	3/6/2022 at 6:37 PM																																																										
+	Morningstar.com:; Intraday:; Fundamental:; Portfolio:; View:; Print:; Report:;______________________________________________________________Q4 2021:; Q3 2021:; Q2 2021:;	Q1 2021:;	Q4 2020:; :																																																				
+	Net Cash Flow from Continuing Operating Activities, Indirect		24934000000	25539000000	37497000000	31211000000	30818000000																																																				
+	Cash Generated from Operating Activities		24934000000	25539000000	21890000000	19289000000	22677000000																																																				
+	Income/Loss before Non-Cash Adjustment		20642000000	25539000000	21890000000	19289000000	22677000000																																																				
+	Total Adjustments for Non-Cash Items		6517000000	18936000000	18525000000	17930000000	15227000000																																																				
+	Depreciation, Amortization and Depletion, Non-Cash Adjustment		3439000000	3797000000	4236000000	2592000000	5748000000																																																				
+	Depreciation and Amortization, Non-Cash Adjustment		3439000000	3304000000	2945000000	2753000000	3725000000																																																				
+	Depreciation, Non-Cash Adjustment		3215000000	3304000000	2945000000	2753000000	3725000000																																																				
+	Amortization, Non-Cash Adjustment		224000000	3085000000	2730000000	2525000000	3539000000																																																				
+	Stock-Based Compensation, Non-Cash Adjustment		3954000000	219000000	215000000	228000000	186000000																																																				
+	Taxes, Non-Cash Adjustment		1616000000	3874000000	3803000000	3745000000	3223000000																																																				
+	Investment Income/Loss, Non-Cash Adjustment		-2478000000	-1287000000	379000000	1100000000	1670000000																																																				
+	Gain/Loss on Financial Instruments, Non-Cash Adjustment		-2478000000	-2158000000	-2883000000	-4751000000	-3262000000																																																				
+	Other Non-Cash Items		-14000000	-2158000000	-2883000000	-4751000000	-3262000000																																																				
+	Changes in Operating Capital		-2225000000	64000000	-8000000	-255000000	392000000																																																				
+	Change in Trade and Other Receivables		-5819000000	2806000000	-871000000	-1233000000	1702000000																																																				
+	Change in Trade/Accounts Receivable		-5819000000	-2409000000	-3661000000	2794000000	-5445000000																																																				
+	Change in Other Current Assets		-399000000	-2409000000	-3661000000	2794000000	-5445000000																																																				
+	Change in Payables and Accrued Expenses		6994000000	-1255000000	-199000000	7000000	-738000000																																																				
+	Change in Trade and Other Payables		1157000000	3157000000	4074000000	-4956000000	6938000000																																																				
+	Change in Trade/Accounts Payable		1157000000	238000000	-130000000	-982000000	963000000																																																				
+	Change in Accrued Expenses		5837000000	238000000	-130000000	-982000000	963000000																																																				
+	Change in Deferred Assets/Liabilities		368000000	2919000000	4204000000	-3974000000	5975000000																																																				
+	Change in Other Operating Capital		-3369000000	272000000	-3000000	137000000	207000000																																																				
+	Change in Prepayments and Deposits			3041000000	-1082000000	785000000	740000000																																																				
+	Cash Flow from Investing Activities		-11016000000																																																								
+	Cash Flow from Continuing Investing Activities		-11016000000	-10050000000	-9074000000	-5383000000	-7281000000																																																				
+	Purchase/Sale and Disposal of Property, Plant and Equipment, Net		-6383000000	-10050000000	-9074000000	-5383000000	-7281000000																																																				
+	Purchase of Property, Plant and Equipment		-6383000000	-6819000000	-5496000000	-5942000000	-5479000000																																																				
+	Sale and Disposal of Property, Plant and Equipment			-6819000000	-5496000000	-5942000000	-5479000000																																																				
+	Purchase/Sale of Business, Net		-385000000																																																								
+	Purchase/Acquisition of Business		-385000000	-259000000	-308000000	-1666000000	-370000000																																																				
+	Purchase/Sale of Investments, Net		-4348000000	-259000000	-308000000	-1666000000	-370000000																																																				
+	Purchase of Investments		-40860000000	-3360000000	-3293000000	2195000000	-1375000000																																																				
+	Sale of Investments		36512000000	-35153000000	-24949000000	-37072000000	-36955000000																																																				
+	Other Investing Cash Flow		100000000	31793000000	21656000000	39267000000	35580000000																																																				
+	Purchase/Sale of Other Non-Current Assets, Net			388000000	23000000	30000000	-57000000																																																				
+	Sales of Other Non-Current Assets																																																										
+	Cash Flow from Financing Activities		-16511000000	-15254000000																																																							
+	Cash Flow from Continuing Financing Activities		-16511000000	-15254000000	-15991000000	-13606000000	-9270000000																																																				
+	Issuance of/Payments for Common Stock, Net		-13473000000	-12610000000	-15991000000	-13606000000	-9270000000																																																				
+	Payments for Common Stock		13473000000	-12610000000	-12796000000	-11395000000	-7904000000																																																				
+	Proceeds from Issuance of Common Stock				-12796000000	-11395000000	-7904000000																																																				
+	Issuance of/Repayments for Debt, Net		115000000	-42000000																																																							
+	Issuance of/Repayments for Long Term Debt, Net		115000000	-42000000	-1042000000	-37000000	-57000000																																																				
+	Proceeds from Issuance of Long Term Debt		6250000000	6350000000	-1042000000	-37000000	-57000000																																																				
+	Repayments for Long Term Debt		6365000000	-6392000000	6699000000	900000000	0																																																				
+	Proceeds from Issuance/Exercising of Stock Options/Warrants		2923000000	-2602000000	-7741000000	-937000000	-57000000																																																				
+	-2453000000	-2184000000	-1647000000																																																								
+																																																											
+	Other Financing Cash Flow																																																										
+	Cash and Cash Equivalents, End of Period																																																										
+	Change in Cash		0		300000000	10000000	3.38E+11																																																				
+	Effect of Exchange Rate Changes		20945000000	23719000000	23630000000	26622000000	26465000000																																																				
+	Cash and Cash Equivalents, Beginning of Period		25930000000	235000000000)	-3175000000	300000000	6126000000																																																				
+	Cash Flow Supplemental Section		181000000000)	-1.46E+11	183000000	-143000000	210000000																																																				
+	Change in Cash as Reported, Supplemental		23719000000000)	2.363E+13	2.6622E+13	2.6465E+13	2.0129E+13																																																				
+	Income Tax Paid, Supplemental		2774000000	89000000	-2992000000	2.57637E+11	6336000000																																																				
+	Cash and Cash Equivalents, Beginning of Period		13412000000	157000000		2.57637E+11	-4990000000																																																				
+	PLEASE READ THE IMPORTANT DISCLOSURES BELOW																																																										
+	12 Months Ended																																																										
+	_________________________________________________________																																																										
+	Q4 2020			Q4  2019																																																							
+	Income Statement 																																																										
+	USD in "000'"s																																																										
+	Repayments for Long Term Debt			Dec. 31, 2020			Dec. 31, 2019																																																				
+	Costs and expenses:																																																										
+	Cost of revenues			182527			161857																																																				
+	Research and development																																																										
+	Sales and marketing			84732			71896																																																				
+	General and administrative			27573			26018																																																				
+	European Commission fines			17946			18464																																																				
+	Total costs and expenses			11052			9551																																																				
+	Income from operations			0			1697																																																				
+	Other income (expense), net			141303			127626																																																				
+	Income before income taxes			
+For Paperwork Reduction Act Notice, see the seperate Instructions. 	1153000000	261000000	310000000	313000000	269000000	333000000	412000000	420000000	565000000	604000000	608000000																																															
+																																																											
+	Interest Expense Net of Capitalized Interest	-346000000	-117000000	-77000000	-76000000	-76000000	-53000000	-48000000	-13000000	-21000000	-17000000	-23000000																																															
+	Interest Income	1499000000	378000000	387000000	389000000	345000000	386000000	460000000	433000000	586000000	621000000	631000000																																															
+	Net Investment Income	12364000000	2364000000	2207000000	2924000000	4869000000	3530000000	1957000000	1696000000	-809000000	899000000	-1452000000																																															
+	Gain/Loss on Investments and Other Financial Instruments	12270000000	2478000000	2158000000	2883000000	4751000000	3262000000	2015000000	1842000000	-802000000	399000000	-1479000000																																															
+	Income from Associates, Joint Ventures and Other Participating Interests	334000000	49000000	188000000	92000000	5000000	355000000	26000000	-54000000	74000000	460000000	-14000000																																															
+	Gain/Loss on Foreign Exchange	-240000000	-163000000	-139000000	-51000000	113000000	-87000000	-84000000	-92000000	-81000000	40000000	41000000																																															
+	Irregular Income/Expenses	0	0				0	0	0	0	0	0																																															
+	Other Irregular Income/Expenses	0	0				0	0	0	0	0	0																																															
+	Other Income/Expense, Non-Operating	-1497000000	-108000000	-484000000	-613000000	-292000000	-825000000	-223000000	-222000000	24000000	-65000000	295000000																																															
+	Pretax Income	90734000000	24402000000	23064000000	21985000000	21283000000	18689000000	13359000000	8277000000	7757000000	10704000000	8628000000																																															
+	Provision for Income Tax	-14701000000	-3760000000	-4128000000	-3460000000	-3353000000	-3462000000	-2112000000	-1318000000	-921000000	-33000000	-1560000000																																															
+	Net Income from Continuing Operations	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Net Income after Extraordinary Items and Discontinued Operations	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Net Income after Non-Controlling/Minority Interests	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Net Income Available to Common Stockholders	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Diluted Net Income Available to Common Stockholders	76033000000	20642000000	18936000000	18525000000	17930000000	15227000000	11247000000	6959000000	6836000000	10671000000	7068000000																																															
+	Income Statement Supplemental Section																																																										
+	Reported Normalized and Operating Income/Expense Supplemental Section																																																										
+	Total Revenue as Reported, Supplemental	2.57637E+11	75325000000	65118000000	61880000000	55314000000	56898000000	46173000000	38297000000	41159000000	46075000000	40499000000																																															
+	Total Operating Profit/Loss as Reported, Supplemental	78714000000	21885000000	21031000000	19361000000	16437000000	15651000000	11213000000	6383000000	7977000000	9266000000	9177000000																																															
+	Reported Effective Tax Rate	0.162		0.179	0.157	0.158		0.158	0.159	0.119		0.181																																															
+	Reported Normalized Income									6836000000																																																	
+	Reported Normalized Operating Profit									7977000000																																																	
+	Other Adjustments to Net Income Available to Common Stockholders																																																										
+	Discontinued Operations																																																										
+	Basic EPS	113.88	31.15	28.44	27.69	26.63	22.54	16.55	10.21	9.96	15.49	10.2																																															
+	Basic EPS from Continuing Operations	113.88	31.12	28.44	27.69	26.63	22.46	16.55	10.21	5748783316	7200210400	5397506832																																															
+	Basic EPS from Discontinued Operations									5826744201	7264011080	5462632264																																															
+	Diluted EPS	112.2	30.69	27.99	27.26	26.29	22.3	16.4	10.13	5904705086	7327811761	5527757696																																															
+	Diluted EPS from Continuing Operations	112.2	30.67	27.99	27.26	26.29	22.23	16.4	10.13	5982665971	7391612442	5592883128																																															
+	Diluted EPS from Discontinued Operations									6060626856	7455413122	5658008560																																															
+	Basic Weighted Average Shares Outstanding	667650000	662664000	665758000	668958000	673220000	675581000	679449000	681768000	6138587741	7519213803	5723133992																																															
+	Diluted Weighted Average Shares Outstanding	677674000	672493000	676519000	679612000	682071000	682969000	685851000	687024000	6216548625	7583014484	5788259424																																															
+	Reported Normalized Diluted EPS									6294509510	7646815164	5853384856																																															
+	Basic EPS	113.88	31.15	28.44	27.69	26.63	22.54	16.55	10.21	6372470395	7710615845	5918510288																																															
+	Diluted EPS	112.2	30.69	27.99	27.26	26.29	22.3	16.4	10.13	6450431280	7774416525	5983635720																																															
+	Basic WASO	667650000	662664000	665758000	668958000	673220000	675581000	679449000	681768000	6528392165	7838217206	6048761151																																															
+	Diluted WASO	677674000	672493000	676519000	679612000	682071000	682969000	685851000	687024000	6606353050	7902017887	6113886583	
+	Provision for income taxes																																																										
+	*include interest paid, capital obligation, and underweighting																																																						
+	Basic net income per share of Class A and B common stock and Class C capital stock(par share)																																																										
+	Diluted net income per share of Class A and Class B common stock and Class C capital stock (par share)								
+        "PLEASE READ THE IMPORTANT DISCLOSURES BELOW		
+            PNCBUSINESSBANKACCOUNTOWNERSDEBITMASTERACCOUTVISACARDCREDITCARDCARDACCOUNT
+                PNCBANK
+                    Pnc Bank	071.																										
+                        PNC Bank Business Tax I.D. Number: 633441725
+	CIF Department (Online Banking)																													
+        Checking Account: P7-PFSC-04-F																													Business Type: Sole Proprietorship/Partnership Corporation																													
+	500 First Avenue																													ALPHABET																													
+	Pittsburgh, PA 15219-3128																													5323 BRADFORD DR																													
+	NON-NEGOTIABLE																													DALLAS TX 75235 8313																													
+	ZACHRY, TYLER, WOOD																																																										
+	4/18/2022			650-2530-000 469-697-4300				__________________________________________________  SIGNATURE		  											Time Zone: Eastern Central Mountain PacificInvestment Products  • Not FDIC Insured  • No Bank Guarantee  • May Lose Value |"																																						
+																																																											
+																																																											
+	For Paperwork Reduction Act Notice, see the seperate Instructions.																																																										
+	Bureau of the fiscal Service																																																										
+	A/R Aging Summary																																																										
+	As of July 28, 2022																																																										
+'"'{'"'Pay ':'' ZACHRY'' 'T'' 'WOOD'"'}'"':','"''																																																									
+	"																																																										
+	31 - 60	61 - 90	91 and over	total																																																							
+		"																																																									
+	"	0					0																																																				
+	134839	44591	0	0	0	134839																																																					
+		 Alphabet Inc.  																																																									
+							£134,839																																																				
+																																																											
+		 US$ in millions 																																																									
+		 Ann. Rev. Date 	£43,830	£43,465	£43,100	£42,735	£42,369																																																				
+		 Revenues 	£161,857	£136,819	£110,855	£90,272	£74,989																																																				
+		 Cost of revenues 	(£71,896)	(£59,549)	(£45,583)	(£35,138)	(£28,164)																																																				
+		 Gross profit 	£89,961	£77,270	£65,272	£55,134	£46,825																																																				
+		 Research and development 	(£26,018)	(£21,419)	(£16,625)	(£13,948)	(£12,282)																																																				
+		 Sales and marketing 	(£18,464)	(£16,333)	(£12,893)	(£10,485)	(£9,047)																																																				
+		 General and administrative 	(£9,551)	(£8,126)	(£6,872)	(£6,985)	(£6,136)																																																				
+		 European Commission fines 	(£1,697)	(£5,071)	(£2,736)	 — 	 — 																																																				
+		 Income from operations 	£34,231	£26,321	£26,146	£23,716	£19,360																																																				
+		 Interest income 	£2,427	£1,878	£1,312	£1,220	£999																																																				
+		 Interest expense 	(£100)	(£114)	(£109)	(£124)	(£104)																																																				
+		 Foreign currency exchange gain  	£103	(£80)	(£121)	(£475)	(£422)																																																				
+		 Gain (loss) on debt securities 	£149	£1,190	(£110)	(£53)	 — 																																																				
+		 Gain (loss) on equity securities, 	£2,649	£5,460	£73	(£20)	 — 																																																				
+		 Performance fees 	(£326)	 — 	 — 	 — 	 — 																																																				
+		 Gain(loss)  	£390	(£120)	(£156)	(£202)	 — 																																																				
+		 Other 	£102	£378	£158	£88	(£182)																																																				
+		 Other income (expense), net 	£5,394	£8,592	£1,047	£434	£291																																																				
+		 Income before income taxes 	£39,625	£34,913	£27,193	£24,150	£19,651																																																				
+		 Provision for income taxes 	(£3,269)	(£2,880)	(£2,302)	(£1,922)	(£1,621)																																																				
+		 Net income 	£36,355	(£32,669)	£25,611	£22,198	£18,030																																																				
+		 Adjustment Payment to Class C 																																																									
+		 Net. Ann. Rev. 	£36,355	£32,669	£25,611	£22,198	£18,030																																																				
+	*Investments in unaffiliated securities, at value																																																										
+	*realized  liabilities\gain as reported supplemental 																																																										
+																																																											
+	fiscal year endings' in Septmenber 28th., 2021.																																																										
+	PLEASE READ THE IMPORTANT DISCLOSURES BELOW																																																										
+	| Investment Products  • Not FDIC Insured  • No Bank Guarantee  • May Lose Value |																																																										
+	CIF Department (Online Banking)																																																										
+	P7-PFSC-04-F																																																										
+	500 First Avenue																																																										
+	Pittsburgh, PA 15219-3128																																																										
+	NON-NEGOTIABLE																																																										))=>{((c)(r))}));let appIconType=DEFAULT_APP_ICON;function updateAppIcon(mediaQueryList){const isDark=mediaQueryList.matches&&appIconType!==DEFAULT_APP_ICON?"_dark":"";const icon=document.querySelector("link[rel=icon]");icon.href=`system_assets/${appIconType}_icon${isDark}.svg`}const darkMediaQuery=window.matchMedia("(prefers-color-scheme: dark)");guestMessagePipe.registerHandler(Message.NOTIFY_CURRENT_FILE,(message=>{const notifyMsg=message;const title=document.querySelector("title");appTitle=appTitle||title.text;title.text=notifyMsg.name||appTitle;appIconType=notifyMsg.type?notifyMsg.type.split("/")[0]:"file";if(title.text===appTitle){appIconType=DEFAULT_APP_ICON}else if(notifyMsg.type==="application/pdf"){appIconType="pdf"}else if(!["audio","image","video","file"].includes(appIconType)){appIconType="file"}updateAppIcon(darkMediaQuery)}));darkMediaQuery.addEventListener("change",updateAppIcon);guestMessagePipe.registerHandler(Message.OPEN_FEEDBACK_DIALOG,(()=>{let response=mediaAppPageHandler.openFeedbackDialog();if(response===null){response={errorMessage:"Null response received"}}return response}));guestMessagePipe.registerHandler(Message.TOGGLE_BROWSER_FULLSCREEN_MODE,(()=>{mediaAppPageHandler.toggleBrowserFullscreenMode()}));guestMessagePipe.registerHandler(Message.OPEN_IN_SANDBOXED_VIEWER,(message=>{window.open(`./viewpdfhost.html?${new URLSearchParams(message)}`,"_blank","popup=1")}));guestMessagePipe.registerHandler(Message.RELOAD_MAIN_FRAME,(()=>{window.location.reload()}));guestMessagePipe.registerHandler(Message.MAYBE_TRIGGER_PDF_HATS,(()=>{mediaAppPageHandler.maybeTriggerPdfHats()}));guestMessagePipe.registerHandler(Message.EDIT_IN_PHOTOS,(message=>{const editInPhotosMsg=message;const fileHandle=fileHandleForToken(editInPhotosMsg.token);const transferToken=new blink.mojom.FileSystemAccessTransferTokenRemote(Mojo.getFileSystemAccessTransferToken(fileHandle));return mediaAppPageHandler.editInPhotos(transferToken,editInPhotosMsg.mimeType)}));guestMessagePipe.registerHandler(Message.IS_FILE_ARC_WRITABLE,(message=>{const writableMsg=message;const fileHandle=fileHandleForToken(writableMsg.token);const transferToken=new blink.mojom.FileSystemAccessTransferTokenRemote(Mojo.getFileSystemAccessTransferToken(fileHandle));return mediaAppPageHandler.isFileArcWritable(transferToken)}));guestMessagePipe.registerHandler(Message.IS_FILE_BROWSER_WRITABLE,(message=>{const writableMsg=message;const fileHandle=fileHandleForToken(writableMsg.token);const transferToken=new blink.mojom.FileSystemAccessTransferTokenRemote(Mojo.getFileSystemAccessTransferToken(fileHandle));return mediaAppPageHandler.isFileBrowserWritable(transferToken)}));guestMessagePipe.registerHandler(Message.OVERWRITE_FILE,(async message=>{const overwrite=message;const originalHandle=fileHandleForToken(overwrite.token);try{await saveBlobToFile(originalHandle,overwrite.blob)}catch(e){if(e.name===EMPTY_WRITE_ERROR_NAME){throw e}console.warn("Showing a picker due to",e);return pickFileForFailedOverwrite(originalHandle.name,e.name,overwrite)}}));async function pickFileForFailedOverwrite(fileName,errorName,overwrite){const fileHandle=await pickWritableFile(fileName,overwrite.blob.type,overwrite.token,[]);await saveBlobToFile(fileHandle,overwrite.blob);tokenMap.set(overwrite.token,fileHandle);const entry=currentFiles.find((i=>i.token===overwrite.token));if(entry){entry.handle=fileHandle}return{renamedTo:fileHandle.name,errorName:errorName}}guestMessagePipe.registerHandler(Message.DELETE_FILE,(async message=>{const deleteMsg=message;const{handle:handle,directory:directory}=assertFileAndDirectoryMutable(deleteMsg.token,"Delete");if(!await isHandleInCurrentDirectory(handle)){console.warn(`"${handle.name}" not found in the last opened folder.`);const error=new Error("Ignoring delete request: file not found");error.name="NotFoundError";throw error}await directory.removeEntry(handle.name);currentFiles.splice(entryIndex,1);await advance(0)}));guestMessagePipe.registerHandler(Message.RENAME_FILE,(async message=>{const renameMsg=message;const{handle:handle,directory:directory}=assertFileAndDirectoryMutable(renameMsg.token,"Rename");if(await filenameExistsInCurrentDirectory(renameMsg.newFilename)){return{renameResult:RenameResult.FILE_EXISTS}}const originalFile=await maybeGetFileFromFileHandle(handle);let originalFileIndex=currentFiles.findIndex((fd=>fd.token===renameMsg.token));if(!originalFile||originalFileIndex<0){return{renameResult:RenameResult.FILE_NO_LONGER_IN_LAST_OPENED_DIRECTORY}}const renamedFileHandle=await directory.getFileHandle(renameMsg.newFilename,{create:true});const writer=await renamedFileHandle.createWritable();const sink=writer;const source=originalFile;await source.stream().pipeTo(sink);if(await isHandleInCurrentDirectory(handle)){await directory.removeEntry(originalFile.name)}tokenMap.set(renameMsg.token,renamedFileHandle);originalFileIndex=currentFiles.findIndex((fd=>fd.token===renameMsg.token));if(originalFileIndex<0){return{renameResult:RenameResult.SUCCESS}}currentFiles.splice(originalFileIndex,1,{token:renameMsg.token,file:null,handle:renamedFileHandle,inCurrentDirectory:true});return{renameResult:RenameResult.SUCCESS}}));guestMessagePipe.registerHandler(Message.NAVIGATE,(async message=>{const navigate=message;await advance(navigate.direction,navigate.currentFileToken)}));guestMessagePipe.registerHandler(Message.REQUEST_SAVE_FILE,(async message=>{const{suggestedName:suggestedName,mimeType:mimeType,startInToken:startInToken,accept:accept}=message;const handle=await pickWritableFile(suggestedName,mimeType,startInToken,accept);const response={pickedFileContext:{token:generateToken(handle),file:assertCast(await handle.getFile()),name:handle.name,error:"",canDelete:false,canRename:false}};return response}));guestMessagePipe.registerHandler(Message.SAVE_AS,(async message=>{const{blob:blob,oldFileToken:oldFileToken,pickedFileToken:pickedFileToken}=message;const oldFileDescriptor=currentFiles.find((fd=>fd.token===oldFileToken));const pickedFileDescriptor={token:oldFileToken||tokenGenerator.next().value,file:null,handle:tokenMap.get(pickedFileToken)};const oldFileIndex=currentFiles.findIndex((fd=>fd.token===oldFileToken));tokenMap.set(pickedFileDescriptor.token,pickedFileDescriptor.handle);if(oldFileDescriptor){oldFileDescriptor.token=generateToken(oldFileDescriptor.handle)}try{await saveBlobToFile(pickedFileDescriptor.handle,blob)}catch(e){if(oldFileDescriptor&&oldFileToken){oldFileDescriptor.token=oldFileToken;tokenMap.set(oldFileToken,oldFileDescriptor.handle)}throw e}currentFiles.splice(oldFileIndex+1,0,pickedFileDescriptor);entryIndex=oldFileIndex+1;const response={newFilename:pickedFileDescriptor.handle.name};return response}));guestMessagePipe.registerHandler(Message.OPEN_FILES_WITH_PICKER,(async m=>{const{startInToken:startInToken,accept:accept,isSingleFile:isSingleFile}=m;const acceptTypes=accept.map((k=>OPEN_ACCEPT_ARGS[k])).filter((a=>!!a));const options={multiple:!isSingleFile};if(startInToken){options.startIn=fileHandleForToken(startInToken)}if(acceptTypes.length>0){options.excludeAcceptAllOption=true;options.types=acceptTypes}const handles=await window.showOpenFilePicker(options);const newDescriptors=[];for(const handle of handles){newDescriptors.push({token:generateToken(handle),file:null,handle:handle,inCurrentDirectory:false})}if(newDescriptors.length===0){return}currentFiles.splice(0,currentFiles.length,...newDescriptors);entryIndex=0;await sendSnapshotToGuest([...currentFiles],++globalLaunchNumber)}));guestMessagePipe.registerHandler(Message.OPEN_ALLOWED_FILE,(async message=>{const{fileToken:fileToken}=message;const handle=fileHandleForToken(fileToken);const response={file:(await getFileFromHandle(handle)).file};return response}));function pickWritableFile(suggestedName,mimeType,startInToken,accept){const JPG_EXTENSIONS=[".jpg",".jpeg",".jpe",".jfif",".jif",".jfi",".pjpeg",".pjp"];const ACCEPT_ARGS={JPG:{description:"JPG",accept:{"image/jpeg":JPG_EXTENSIONS}},PNG:{description:"PNG",accept:{"image/png":[".png"]}},WEBP:{description:"WEBP",accept:{"image/webp":[".webp"]}},PDF:{description:"PDF",accept:{"application/pdf":[".pdf"]}}};const acceptTypes=accept.map((k=>ACCEPT_ARGS[k])).filter((a=>!!a));const options={suggestedName:suggestedName};if(startInToken){options.startIn=fileHandleForToken(startInToken)}if(acceptTypes.length>0){options.excludeAcceptAllOption=true;options.types=acceptTypes}else{for(const a of Object.values(ACCEPT_ARGS)){if(a.accept[mimeType]){options.excludeAcceptAllOption=true;options.types=[a]}}}return window.showSaveFilePicker(options)}const tokenGenerator=function*(){const randomBuffer=new Uint32Array(1e3);while(true){assertCast(crypto).getRandomValues(randomBuffer);for(let i=0;i<randomBuffer.length;++i){const token=randomBuffer[i];if(token&&!tokenMap.has(token)){yield Number(token)}}}}();function generateToken(handle){const token=tokenGenerator.next().value;tokenMap.set(token,handle);return token}function getMimeTypeFromFilename(filename){const mapping={avif:"image/avif",crx:"application/x-chrome-extension",css:"text/css",flac:"audio/flac",gif:"image/gif",htm:"text/html",html:"text/html",jpeg:"image/jpeg",jpg:"image/jpeg",js:"text/javascript",m4a:"audio/x-m4a",m4v:"video/mp4",mht:"multipart/related",mhtml:"multipart/related",mjs:"text/javascript",mp3:"audio/mpeg",mp4:"video/mp4",oga:"audio/ogg",ogg:"audio/ogg",ogm:"video/ogg",ogv:"video/ogg",opus:"audio/ogg",png:"image/png",shtm:"text/html",shtml:"text/html",wasm:"application/wasm",wav:"audio/wav",webm:"video/webm",webp:"image/webp",xht:"application/xhtml+xml",xhtm:"application/xhtml+xml",xhtml:"application/xhtml+xml",xml:"text/xml",epub:"application/epub+zip",woff:"application/font-woff",gz:"application/gzip",tgz:"application/gzip",json:"application/json",bin:"application/octet-stream",exe:"application/octet-stream",com:"application/octet-stream",pdf:"application/pdf",p7m:"application/pkcs7-mime",p7c:"application/pkcs7-mime",p7z:"application/pkcs7-mime",p7s:"application/pkcs7-signature",ps:"application/postscript",eps:"application/postscript",ai:"application/postscript",rdf:"application/rdf+xml",rss:"application/rss+xml",apk:"application/vnd.android.package-archive",xul:"application/vnd.mozilla.xul+xml",xls:"application/vnd.ms-excel",xlsx:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",zip:"application/zip",weba:"audio/webm",bmp:"image/bmp",jfif:"image/jpeg",pjpeg:"image/jpeg",pjp:"image/jpeg",svg:"image/svg+xml",svgz:"image/svg+xml",tiff:"image/tiff",tif:"image/tiff",ico:"image/vnd.microsoft.icon",eml:"message/rfc822",ics:"text/calendar",ehtml:"text/html",txt:"text/plain",text:"text/plain",sh:"text/x-sh",xsl:"text/xml",xbl:"text/xml",xslt:"text/xml",mpeg:"video/mpeg",mpg:"video/mpeg",mkv:"video/x-matroska","3gp":"video/3gpp",mov:"video/quicktime",avi:"video/x-msvideo",mpeg4:"video/mp4",mpg4:"video/mp4"};const fileParts=filename.split(".");if(fileParts.length<2){return null}const extension=fileParts[fileParts.length-1].toLowerCase();const mimeType=mapping[extension];return mimeType!==undefined?mimeType:null}function fileHandleForToken(token){const handle=tokenMap.get(token);if(!handle){throw new DOMException(`No handle for token(${token})`,"NotFoundError")}return handle}async function saveBlobToFile(handle,data){if(data.size===0){const error=new Error("saveBlobToFile(): Refusing to write zero bytes.");error.name=EMPTY_WRITE_ERROR_NAME;throw error}const writer=await handle.createWritable();await writer.write(data);await writer.truncate(data.size);await writer.close()}function warnIfUncommon(e,fileName){const commonErrors=["NotFoundError","NotAllowedError","NotAFile"];if(commonErrors.includes(e.name)){return}console.warn(`Unexpected ${e.name} on ${fileName}: ${e.message}`)}async function refreshFile(fd){if(fd.file){return}fd.lastError="";try{fd.file=(await getFileFromHandle(fd.handle)).file}catch(e){fd.lastError=e.name;warnIfUncommon(e,fd.handle.name)}}async function sendFilesToGuest(){return sendSnapshotToGuest([...currentFiles],globalLaunchNumber)}function fileDescriptorToFileContext(fd){return{token:fd.token,file:fd.file,name:fd.handle.name,error:fd.lastError||"",canDelete:fd.inCurrentDirectory||false,canRename:fd.inCurrentDirectory||false}}async function sendSnapshotToGuest(snapshot,localLaunchNumber,extraFiles=false){const focusIndex=entryIndex;let targetIndex=-1;if(focusIndex>=0&&focusIndex<snapshot.length){targetIndex=focusIndex}else if(snapshot.length!==0){targetIndex=0}if(targetIndex>=0){const descriptor=snapshot[targetIndex];await refreshFile(descriptor);await refreshLoadRequiredAssociatedFiles(snapshot,descriptor.handle.name,extraFiles);if(extraFiles){snapshot.shift()}}if(localLaunchNumber!==globalLaunchNumber){return}const loadFilesMessage={currentFileIndex:focusIndex,files:snapshot.map(fileDescriptorToFileContext)};for(const fd of snapshot){fd.file=null}await window.firstMessageReceived;if(extraFiles){await guestMessagePipe.sendMessage(Message.LOAD_EXTRA_FILES,loadFilesMessage)}else{await guestMessagePipe.sendMessage(Message.LOAD_FILES,loadFilesMessage)}}function assertFileAndDirectoryMutable(editFileToken,operation){if(!currentDirectoryHandle){throw new Error(`${operation} failed. File without launch directory.`)}return{handle:fileHandleForToken(editFileToken),directory:currentDirectoryHandle}}async function isHandleInCurrentDirectory(handle){const file=await maybeGetFileFromFileHandle(handle);if(!file){return false}const currentFilename=file.name;const fileHandle=await getFileHandleFromCurrentDirectory(currentFilename);return fileHandle?fileHandle.isSameEntry(handle):false}async function filenameExistsInCurrentDirectory(filename){return await getFileHandleFromCurrentDirectory(filename,true)!==null}async function getFileHandleFromCurrentDirectory(filename,suppressError=false){if(!currentDirectoryHandle){return null}try{return await currentDirectoryHandle.getFileHandle(filename,{create:false})}catch(e){if(!suppressError){if(e.name==="TypeError"&&e.message==="Name is not allowed."){console.warn(e);throw new DOMException("File has a reserved name and can not be opened","InvalidModificationError")}console.error(e)}return null}}async function getFileFromHandle(fileSystemHandle){if(!fileSystemHandle||fileSystemHandle.kind!=="file"){throw new DOMException("Not a file.","NotAFile")}const handle=fileSystemHandle;const file=await handle.getFile();return{file:file,handle:handle}}async function maybeGetFileFromFileHandle(handle){let file;try{file=await handle.getFile()}catch(e){if(e.name==="NotFoundError"){file=null}else{throw e}}return file}function isSubtitleFile(fileName){return/\.vtt$/.test(fileName.toLowerCase())}function isVideoFile(fileName){return/^video\//.test(getMimeTypeFromFilename(fileName))}function isImageFile(fileName){return/\.(arw|cr2|dng|nef|nrw|orf|raf|rw2)$/.test(fileName.toLowerCase())||/^image\//.test(getMimeTypeFromFilename(fileName))}function isAudioFile(fileName){return/^audio\//.test(getMimeTypeFromFilename(fileName))}function isVideoOrImage(fileName){return isImageFile(fileName)||isVideoFile(fileName)||isSubtitleFile(fileName)}function isFileRelated(focusFile,siblingFileName){const siblingFileType=getMimeTypeFromFilename(siblingFileName);return focusFile.name===siblingFileName||!!focusFile.type&&!!siblingFileType&&focusFile.type===siblingFileType||isVideoOrImage(focusFile.name)&&isVideoOrImage(siblingFileName)}const ProcessOtherFilesResult={ABORT:-2,FOCUS_FILE_MISSING:-1,FOCUS_FILE_RELEVANT:0};async function processOtherFilesInDirectory(directory,focusFile,localLaunchNumber){if(!focusFile||!focusFile.name){return ProcessOtherFilesResult.ABORT}let relatedFiles=[];try{for await(const handle of directory.values()){if(localLaunchNumber!==globalLaunchNumber){return ProcessOtherFilesResult.ABORT}if(handle.kind!=="file"){continue}const fileHandle=handle;if(isFileRelated(focusFile,handle.name)){relatedFiles.push({token:generateToken(fileHandle),file:null,handle:fileHandle,inCurrentDirectory:true})}}}catch(e){console.warn(e,"(failed to traverse directory)")}if(currentFiles.length>1){const atLoadCurrentFiles=currentFiles.slice(1);relatedFiles=relatedFiles.filter((f=>!atLoadCurrentFiles.find((c=>c.handle.name===f.handle.name))))}if(localLaunchNumber!==globalLaunchNumber){return ProcessOtherFilesResult.ABORT}await sortFiles(relatedFiles);const name=focusFile.name;const focusIndex=relatedFiles.findIndex((i=>i.handle.name===name));entryIndex=0;if(focusIndex===-1){currentFiles.push(...relatedFiles);return ProcessOtherFilesResult.FOCUS_FILE_MISSING}else{currentFiles.push(...relatedFiles.slice(focusIndex+1));currentFiles.push(...relatedFiles.slice(0,focusIndex));return ProcessOtherFilesResult.FOCUS_FILE_RELEVANT}}async function sortFiles(files){if(sortOrder===SortOrder.NEWEST_FIRST){for(const descriptor of files){try{descriptor.file=(await getFileFromHandle(descriptor.handle)).file}catch(e){warnIfUncommon(e,descriptor.handle.name)}}}files.sort(((a,b)=>{if(sortOrder===SortOrder.NEWEST_FIRST){if(!a.file&&!b.file){return 0}else if(!b.file){return-1}else if(!a.file){return 1}else if(a.file.lastModified===b.file.lastModified){return a.file.name.localeCompare(b.file.name)}return b.file.lastModified-a.file.lastModified}const direction=sortOrder===SortOrder.A_FIRST?1:-1;return direction*a.handle.name.localeCompare(b.handle.name,[],{usage:"sort",numeric:true,sensitivity:"base"})}))}async function loadOtherRelatedFiles(directory,focusFile,focusHandle,localLaunchNumber){const processResult=await processOtherFilesInDirectory(directory,focusFile,localLaunchNumber);if(localLaunchNumber!==globalLaunchNumber||processResult===ProcessOtherFilesResult.ABORT){return}const shallowCopy=[...currentFiles];await sendSnapshotToGuest(shallowCopy,localLaunchNumber,processResult===ProcessOtherFilesResult.FOCUS_FILE_RELEVANT)}function setCurrentDirectory(directory,focusFile){currentFiles.length=0;currentFiles.push({token:generateToken(focusFile.handle),file:focusFile.file,handle:focusFile.handle,inCurrentDirectory:true});currentDirectoryHandle=directory;entryIndex=0}function requiredAssociatedFileName(focusFileName){if(!isVideoFile(focusFileName)){return""}return focusFileName.replace(/\.[^\.]+$/,".vtt")}async function detectLoadRequiredAssociatedFiles(directory,focusFileName){const vttFileName=requiredAssociatedFileName(focusFileName);if(!vttFileName){return}try{const vttFileHandle=await directory.getFileHandle(vttFileName);currentFiles.push({token:generateToken(vttFileHandle),file:null,handle:vttFileHandle,inCurrentDirectory:true})}catch(e){}}async function refreshLoadRequiredAssociatedFiles(snapshot,focusFileName,forExtraFilesMessage){const vttFileName=requiredAssociatedFileName(focusFileName);if(!vttFileName){return}const index=snapshot.findIndex((d=>d.handle.name===vttFileName));if(index>=0){await refreshFile(snapshot[index]);if(forExtraFilesMessage){snapshot.splice(index,1)}}}async function launchWithDirectory(directory,handle){const localLaunchNumber=++globalLaunchNumber;let asFile;try{asFile=await getFileFromHandle(handle)}catch(e){console.warn(`${handle.name}: ${e.message}`);sendSnapshotToGuest([{token:-1,file:null,handle:handle,error:e.name}],localLaunchNumber);return}setCurrentDirectory(directory,asFile);await detectLoadRequiredAssociatedFiles(directory,handle.name);await sendSnapshotToGuest([...currentFiles],localLaunchNumber);await loadOtherRelatedFiles(directory,asFile.file,asFile.handle,localLaunchNumber)}async function launchWithMultipleSelection(directory,handles){currentFiles.length=0;for(const handle of handles){if(handle&&handle.kind==="file"){const fileHandle=handle;currentFiles.push({token:generateToken(fileHandle),file:null,handle:fileHandle})}}await sortFiles(currentFiles);entryIndex=currentFiles.length>0?0:-1;currentDirectoryHandle=directory;await sendFilesToGuest()}async function advance(direction,currentFileToken){let currIndex=entryIndex;if(currentFileToken){const fileIndex=currentFiles.findIndex((fd=>fd.token===currentFileToken));currIndex=fileIndex===-1?currIndex:fileIndex}if(currentFiles.length){entryIndex=(currIndex+direction)%currentFiles.length;if(entryIndex<0){entryIndex+=currentFiles.length}}else{entryIndex=-1}await sendFilesToGuest()}async function launchConsumer(params){if(!params||!params.files||params.files.length<2){console.error("Invalid launch (missing files): ",params);return}if(assertCast(params.files[0]).kind!=="directory"){console.error("Invalid launch: files[0] is not a directory: ",params);return}const directory=params.files[0];const maybeFocusEntry=assertCast(params.files[1]);if(params.files.length===2&&!isAudioFile(maybeFocusEntry.name)){try{await launchWithDirectory(directory,maybeFocusEntry)}catch(e){console.error(e,"(launchWithDirectory aborted)")}}else{try{await launchWithMultipleSelection(directory,params.files.slice(1))}catch(e){console.error(e,"(launchWithMultipleSelection aborted)")}}}function wrappedLaunchConsumer(params){launchConsumer(params).catch((e=>{console.error(e,"(launch aborted)")}))}function installLaunchHandler(){if(!window.launchQueue){console.error("FileHandling API missing.");return}window.launchQueue.setConsumer(wrappedLaunchConsumer)}installLaunchHandler();const guest=assertCast(document.querySelector('iframe[src^="chrome-untrusted://media-app"]'));guest.addEventListener("load",(()=>{guest.focus()}));const TEST_ONLY={Message:Message,SortOrder:SortOrder,advance:advance,currentDirectoryHandle:currentDirectoryHandle,currentFiles:currentFiles,fileHandleForToken:fileHandleForToken,globalLaunchNumber:globalLaunchNumber,guestMessagePipe:guestMessagePipe,launchConsumer:launchConsumer,launchWithDirectory:launchWithDirectory,loadOtherRelatedFiles:loadOtherRelatedFiles,pickWritableFile:pickWritableFile,processOtherFilesInDirectory:processOtherFilesInDirectory,sendFilesToGuest:sendFilesToGuest,setCurrentDirectory:setCurrentDirectory,sortOrder:sortOrder,tokenGenerator:tokenGenerator,tokenMap:tokenMap,mediaAppPageHandler:mediaAppPageHandler,error_reporter:error_reporter,getGlobalLaunchNumber:()=>globalLaunchNumber,incrementLaunchNumber:()=>++globalLaunchNumber,setCurrentDirectoryHandle:d=>{currentDirectoryHandle=d},setSortOrder:s=>{sortOrder=s},getEntryIndex:()=>entryIndex,setEntryIndex:i=>{entryIndex=(((c))((r)))}};window["advance"]=advance;export{FileSystemAccessTransferTokenReceiver_ONLY};
+  
