@@ -10,7 +10,7 @@
 ## Overview
 This course is designed to be an introduction to numerical computing and data visualization in Python. It is not designed to be a complete course in Computer Science or programming, but rather a motivational demonstration of how relatively complex topics can be accessible even to those without formal progamming backgrounds.
 
-This training is designed to be conducted in-person, led by J.P. Morgan technologists and traders. For interested institutional clients, please reach out [via email](mailto:open_source@jpmorgan.com)
+This training is designed to be conducted in-person, led by J.P. Morgan technologists and traders. For interested institutional clients, please reach out to your J.P. Morgan relationships.
 
 [![](https://img.shields.io/badge/Launch-Cloud%20Instance-brightgreen?style=for-the-badge)](http://mybinder.org/v2/gh/jpmorganchase/python-training/main?urlpath=lab)
 
