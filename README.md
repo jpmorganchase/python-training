@@ -8,7 +8,7 @@
 
 
 ## Overview
-This course is designed to be an introduction to numerical computing and data visualization in Python. It is not designed to be a complete course in Computer Science or programming, but rather a motivational demonstration of how relatively complex topics can be accessible even to those without formal progamming backgrounds.
+This course is designed to be an introduction to numerical computing and data visualization in Python. It is not designed to be a complete course in Computer Science or programming, but rather a motivational demonstration of how relatively complex topics can be accessible even to those without formal programming backgrounds.
 
 This training is designed to be conducted in-person, led by J.P. Morgan technologists and traders. For interested institutional clients, please contact your J.P. Morgan team.
 
