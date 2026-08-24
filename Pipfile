@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+beautifulsoup4 = "*"
+ipympl = "*"
+ipywidgets = "*"
+jupyterlab = ">=4.6.2"
+jupyterlab-templates = "*"
+matplotlib = "*"
+numpy = "*"
+pandas = ">=1"
+perspective-python = "*"
+plotly = "*"
+pyarrow = ">=14.0.1"
+requests = ">=2.32.4"
+scipy = "*"
+seaborn = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"

@@ -20,9 +20,11 @@ This repository relies on the [Binder](https://mybinder.readthedocs.io/en/latest
 
 ## Data Attribution
 
-- Financial data provided by [IEX Cloud](https://iexcloud.io)
+- Financial data provided by [Alpha Vantage](https://www.alphavantage.co). This course originally used [IEX Cloud](https://iexcloud.io), which was fully discontinued on August 31, 2024; the affected notebook was migrated to Alpha Vantage's API. See [.env.example](.env.example) for how to configure your own API key.
 - Airport and route data provided by [OpenFlights.org](https://openflights.org/data.html#license)
+
+References to IEX Cloud, Alpha Vantage, or any other third-party platform, product, data, or API provider in this repository is for illustrative and educational purposes only, and should not be construed as an endorsement of that product or company by J.P. Morgan Chase & Co. or its affiliates.
 
 
 ## License
-This software is licensed under the Apache 2 license. See the [LICENSE](LICENSE) file for details.
+This software is licensed under the Apache 2.0 license. See the [LICENSE](LICENSE) file for details.

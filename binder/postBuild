@@ -1,4 +1,4 @@
 #!/bin/bash
 
-jupyter serverextension enable --py jupyterlab
-jupyter serverextension enable --py jupyterlab_templates
+jupyter server extension enable --py jupyterlab
+jupyter server extension enable --py jupyterlab_templates
