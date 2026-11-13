@@ -2098,11 +2098,12 @@
         },
         "soupsieve": {
             "hashes": [
-                "sha256:4a55d8cf158a9c2e587fa4922f1bbb91d68ac829e2d6f25403a85747c71daf74",
-                "sha256:8089a26fd974ca7a1f30276d3d8492ab266ab15af581642dfe8aa162e0c1c823"
+                "sha256:5e7494bfce90e06676cfb4c5c2cf22243e98e5cf24646bb1ecdda46d318550a0",
+                "sha256:ccd6470b256394ac44b08b86fd94b30a17d335a5335c8a3d15565f7b03d3c8cf"
             ],
-            "markers": "python_version >= '3.10'",
-            "version": "==2.9.2"
+            "index": "pypi",
+            "markers": "python_full_version >= '3.11.5'",
+            "version": "==4.0"
         },
         "stack-data": {
             "hashes": [
